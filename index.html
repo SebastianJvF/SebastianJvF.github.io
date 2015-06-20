@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+
+	<title>Web app for rapid prototyping of interactive smartphone cases</title>
+	
+	<meta charset="utf-8">
+	
+	<link rel="stylesheet" type="text/css" href="css/layout.css"  media="all">
+	
+	<script src="js/jquery-1.11.3.js" type="text/javascript"></script>
+	<script>
+	/* Menu toggles */
+	$(document).ready(function () {
+		/* Hide all option panels */
+		$("nav div.options").hide();   
+	  
+	  	/* Change all the description divs into links */
+		$("nav div.description").each(function () {
+			var contentDescription = $(this).text()
+			$(this).replaceWith('<a href="" title="Click to view the sub menu" class="description">' + contentDescription + '<\/a>') ;
+		}); 
+		
+		/* Change the onclick function of the created links*/
+		$("nav a.description").click( function () {
+				
+			/* If the menue is open, close it; Remark: next takes the next element of the same parent of the given element */
+			if ($(this).next("div.options:visible").length != 0) {
+				$(this).next("div.options").slideUp("normal");
+			} else { /* Otherwise open it */
+				/* Close all other menues */
+				$("nav div.options").slideUp("normal");
+				/* Open the next div.options we can find */
+				$(this).next("div.options").slideDown("normal");
+			}
+
+			/* So that the browser does not try to open the link */
+		    return false;
+		});
+	});
+	</script>
+
+</head>
+<body>
+	<div id="error-message">
+	Error message
+	</div>
+
+	<div id="wrap">
+	
+		<div id="information">
+		Please click on the menu headers below<br>
+		to view available configuration options
+		</div>
+	
+		<nav>
+			<h1>Phone model</h1>
+			<div class="description">Choose one of the available phone models below</div>
+			<div class="options">Options panel</div>
+			
+			<h1>Push buttons</h1>
+			<div class="description">Buttons that spring back to their usual, unpushed state</div>
+			<div class="options">
+				<ul>
+				<li><a href="#"><span></span>Label</a></li>
+				<li><a href="#"><span></span>Label</a></li>
+				<li><a href="#"><span></span>Label</a></li>
+				<li><a href="#"><span></span>Label</a></li>
+				<li><a href="#"><span></span>Label</a></li>
+				<li></li>
+				</ul>
+				<span class="clear"></span>
+			</div>
+			
+			<h1>Knobs</h1>
+			<div class="description">Rotary controls that can be turned to indicate one of the available state positions</div>
+			<div class="options">Options panel</div>
+			
+			<h1>Sliders</h1>
+			<div class="description">Control element to set a value by moving an indicator</div>
+			<div class="options">Options panel</div>
+		</nav>
+		
+		<div id="two-d-preview">
+		</div>
+		
+		<div id="three-d-panel">
+			<div id="three-d-preview"></div>
+			<a href="#" title="Download 3D model(s)">Download 3D model(s)</a>
+		</div>
+		
+		<span class="clear"></span>
+	</div>
+
+</body>
+</html>
