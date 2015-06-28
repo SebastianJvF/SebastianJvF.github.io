@@ -5,14 +5,17 @@
 	<title>Web app for rapid prototyping of interactive smartphone cases</title>
 	
 	<meta charset="utf-8">
-	
 	<link rel="stylesheet" type="text/css" href="css/layout.css"  media="all">
 	
+	<script src="js/fabric/fabric.js" type="text/javascript"></script>
 	<script src="js/jquery-1.11.3.js" type="text/javascript"></script>
-	<script>
-	/* Menu toggles */
+	
+	<script type="text/javascript">
+	/** MENU **/
+	/* Menu toggles, Errors */
 	$(document).ready(function () {
 		/* Hide all option panels */
+		$("#info-message").hide();
 		$("nav div.options").hide();   
 	  
 	  	/* Change all the description divs into links */
@@ -38,25 +41,61 @@
 		    return false;
 		});
 	});
+	
+	/* Show error messages if needed */
+	var errorMessageRed = '#FF6060';
+	var errorMessageGreen = '#6088FF';
+	
+	function errorMessage(message, backgroundColor) {
+		$("#info-message").html(message);
+		$("#info-message").css("background-color", backgroundColor);
+		$("#info-message").show().delay(10000).fadeOut();
+		$("#info-message").slideUp("normal");
+	}
+	
+	/** APPLICATION **/
+	var phoneModel;
+	
+	/* Make the user choose a phone model */
+	$(document).ready(function() {
+		// $('#canvas').hide();
+		$('#phone-model').change(function () {
+		    if($(this).val() != '') {
+		    	phoneModel = $(this).val();
+		    	errorMessage('Phone model chosen:<br>' +  $("#phone-model option:selected").text(), errorMessageGreen);
+		    	// $('#canvas').show();
+		    } else {
+		    	// $('#canvas').hide();
+				phoneModel = '';
+				errorMessage('Please choose a phone model!', errorMessageRed);
+		    }
+		})
+	});
 	</script>
 
 </head>
 <body>
-	<div id="error-message">
-	Error message
+	<div id="info-message">
+	Please activate Javascript to use this application.
 	</div>
 
 	<div id="wrap">
-	
-		<div id="information">
-		Please click on the menu headers below<br>
-		to view available configuration options
-		</div>
-	
 		<nav>
+			<div class="information">
+			Please click on the menu headers below
+			to view available configuration options.
+			</div>
+			
 			<h1>Phone model</h1>
 			<div class="description">Choose one of the available phone models below</div>
-			<div class="options">Options panel</div>
+			<div class="options">
+				<form id="application">
+				<select id="phone-model">
+				<option value="">Please choose...</option>
+				<option value="iphone-5">iPhone 5</option>
+				</select>
+				</form>
+			</div>	
 			
 			<h1>Push buttons</h1>
 			<div class="description">Buttons that spring back to their usual, unpushed state</div>
@@ -82,9 +121,85 @@
 		</nav>
 		
 		<div id="two-d-preview">
-		</div>
+			<div class="information">
+			This is a <span class="bold">2D representation</span> of the phone case.<br>
+			Please drag controls from the menu onto the panel.
+			</div>
+	    	<canvas id="canvas" width="570" height="500"></canvas>
+	    </div>
+	    
+	    <script>
+		var canvas = new fabric.Canvas('canvas');
+	
+		/** 2D PHONE MODEL **/
+		var modelStrokeWidth = 2;
+		var modelColor = '#ffffff';
+		var modelStrokeColor = '#c3bfbf';
+		
+		var middleRect = new fabric.Rect({
+				top : 110,
+				left : 185,
+				width : 200,
+				height : 280,
+				fill : modelColor,
+				strokeWidth : modelStrokeWidth,
+				stroke: modelStrokeColor
+		});
+		
+		var leftRect = new fabric.Rect({
+				top : 110,
+				left : 115,
+				width : 50,
+				height : 280,
+				fill : modelColor,
+				strokeWidth : modelStrokeWidth,
+				stroke: modelStrokeColor
+		});
+		
+		var rightRect = new fabric.Rect({
+				top : 110,
+				left : 405,
+				width : 50,
+				height : 280,
+				fill : modelColor,
+				strokeWidth : modelStrokeWidth,
+				stroke: modelStrokeColor
+		});
+		
+		var topRect = new fabric.Rect({
+				top : 40,
+				left : 185,
+				width : 200,
+				height : 50,
+				fill : modelColor,
+				strokeWidth : modelStrokeWidth,
+				stroke: modelStrokeColor
+		});
+		
+		var bottomRect = new fabric.Rect({
+				top : 410,
+				left : 185,
+				width : 200,
+				height : 50,
+				fill : modelColor,
+				strokeWidth : modelStrokeWidth,
+				stroke: modelStrokeColor
+		});
+	
+		canvas.add(middleRect);
+		canvas.add(leftRect);
+		canvas.add(rightRect);
+		canvas.add(topRect);
+		canvas.add(bottomRect);
+		
+		/* Make mock-up unselectable */
+		for(var i = 0; i < 6; i++) {
+			canvas.item(i).selectable = false;
+		}
+	    </script>
 		
 		<div id="three-d-panel">
+			<div class="information">This is a <span class="bold">3D preview</span> of the case.<br> Turn it by dragging around.</div>
 			<div id="three-d-preview"></div>
 			<a href="#" title="Download 3D model(s)">Download 3D model(s)</a>
 		</div>

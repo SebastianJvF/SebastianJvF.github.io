@@ -20,19 +20,25 @@ span.clear {
 	visibility: hidden;
 }
 
+span.bold {
+	font-weight: bold;
+}
+
 /* start layout */
 div#wrap {
 	width: 1140px;
 	margin: 100px auto;
 }
 
-div#wrap div#information {
+div.information {
 	color: #858585;
 	padding: 0 0 15px 5px;
+	background-color: #E8E8E8;
 }
 
-nav, div#two-d-preview, 
-div#three-d-panel {
+nav, #two-d-preview, 
+div#three-d-panel,
+canvas.upper-canvas {
 	float: left;
 }
 
@@ -41,9 +47,8 @@ nav {
 	margin-right: 30px;
 }
 
-div#two-d-preview {
+#two-d-preview {
 	width: 570px;
-	height: 428px; /* 4:3 format */
 	margin-right: 30px;
 	background-color: #ffffff;
 }
@@ -67,10 +72,11 @@ nav h1 {
 nav .description,
 nav div.options,
 div#three-d-panel a,
-div#wrap div#information,
-div#error-message {
+div#wrap div.information,
+div#info-message {
 	font-size: 1.3em;
-	font-style: italic;	
+	font-style: italic;
+	line-height: 1.5;
 	font-family: Georgia, serif, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
@@ -172,7 +178,7 @@ div#three-d-panel a:focus {
 }
 
 /* error messages */
-div#error-message {
+div#info-message {
 	width: 200px;
 	display: block;
 	top: 20px;
