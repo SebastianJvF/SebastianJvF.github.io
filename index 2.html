@@ -42,77 +42,33 @@
 		});
 	});
 	
-	/* Add drag and drop */
-	/* Dragend - event $(document).bind('dragend', function(){ console.log("Dragend"); }); */ 
-	/* Dragging workaround: set variable to true when clicked on link and check on mouse up */
-	function createDraggableObject(fabricObject, buttonName) {
-		var draggingStarted = false;
-		
-		/* Create a deep copy of the object to be able to add multiple elements */
-		var deepCopy =  $.extend({}, fabricObject);
-		
-		$('#' + buttonName).mousedown(function() {
-			draggingStarted = true;
-			
-			$("#fire-dragend").mouseup(function(e) {
-				if(draggingStarted == true) {
-					console.log("Mouseup");
-					draggingStarted = false;
-					
-					/* Get mouse position on canvas */
-					var offset = $("#fire-dragend").offset();
-					var mouseCoordinates = {'x': e.pageX-offset.left, 'y': e.pageY-offset.top};
-					
-					/* Add object */	
-					canvas.add(deepCopy);
-					showMessage("Button added", showMessageBlue);
-					
-					/* Set coordinates */
-					deepCopy.setTop(mouseCoordinates.y);
-					deepCopy.setLeft(mouseCoordinates.x);
-					
-					/* Let element be further moved */
-					deepCopy.setCoords();
-					canvas.renderAll();
-					
-					/* Create a new deep copy to empty the old one */
-					deepCopy =  $.extend({}, fabricObject);
-				}
-			});
-			
-			/* To end mousedown event right afterwards */
-			return false;
-		});
-	}
+	/* Show error messages if needed */
+	var errorMessageRed = '#FF6060';
+	var errorMessageGreen = '#6088FF';
 	
-	/* INFORMATION MESSAGES */
-	var showMessageRed = '#FF6060';
-	var showMessageBlue = '#6088FF';
-	
-	function showMessage(message, backgroundColor) {
+	function errorMessage(message, backgroundColor) {
 		$("#info-message").html(message);
 		$("#info-message").css("background-color", backgroundColor);
-		$("#info-message").show().delay(5000).fadeOut();
+		$("#info-message").show().delay(10000).fadeOut();
 		$("#info-message").slideUp("normal");
 	}
 	
 	/** APPLICATION **/
-	/* Variables */
+	/* Phone model */
 	var phoneModel;
 	
-	/* Phone model */
 	/* Make the user choose a phone model (disabled), show message */
 	$(document).ready(function() {
 		// $('#canvas').hide();
 		$('#phone-model').change(function () {
 		    if($(this).val() != '') {
 		    	phoneModel = $(this).val();
-		    	showMessage('Phone model chosen:<br>' +  $("#phone-model option:selected").text(), showMessageBlue);
+		    	errorMessage('Phone model chosen:<br>' +  $("#phone-model option:selected").text(), errorMessageGreen);
 		    	// $('#canvas').show();
 		    } else {
 		    	// $('#canvas').hide();
 				phoneModel = '';
-				showMessage('Please choose a phone model!', showMessageRed);
+				errorMessage('Please choose a phone model!', errorMessageRed);
 		    }
 		})
 	});
@@ -146,7 +102,11 @@
 			<div class="description">Buttons that spring back to their usual, unpushed state</div>
 			<div class="options">
 				<ul>
-				<li><a href="#" id="testbutton"><span></span>Hello World</a></li>
+				<li><a href="#"><span></span>Label</a></li>
+				<li><a href="#"><span></span>Label</a></li>
+				<li><a href="#"><span></span>Label</a></li>
+				<li><a href="#"><span></span>Label</a></li>
+				<li><a href="#"><span></span>Label</a></li>
 				<li></li>
 				</ul>
 				<span class="clear"></span>
@@ -166,15 +126,15 @@
 			This is a <span class="bold">2D representation</span> of the phone case.<br>
 			Please drag controls from the menu onto the panel.
 			</div>
-	    	<div id="fire-dragend">
-	    	<canvas id="twodpanel" width="570" height="500"></canvas>
-	    	</div>
+	    	<canvas id="canvas" width="570" height="500"></canvas>
+	    	
+	    	<canvas id="canvas1" style="width:300px;height:300px;"></canvas>
+	    	<canvas id="canvas2" style="width:300px;height:300px;"></canvas>
 	    </div>
 	    
 	    <script>
-		var canvas = new fabric.Canvas('twodpanel');
-		var controlColor = '#000000';	
-			
+		var canvas = new fabric.Canvas('canvas');
+	
 		/** 2D PHONE MODEL **/
 		var modelStrokeWidth = 2;
 		var modelColor = '#ffffff';
@@ -236,19 +196,14 @@
 		canvas.add(topRect);
 		canvas.add(bottomRect);
 		
-		/* Make mock-up unselectable */
-		canvas.item(0).selectable = false;
-		canvas.item(1).selectable = false;
-		canvas.item(2).selectable = false;
-		canvas.item(3).selectable = false;
-		canvas.item(4).selectable = false;
-		
-		
-		/** Add Drag and Drop Options **/
 		$(document).ready(function() {
+		    
+		    var canvases = {
+		        canvas1 : new fabric.Canvas('canvas1', {backgroundColor: 'red'}),
+		        canvas2 : new fabric.Canvas('canvas2', {backgroundColor: 'blue'})
+		    };
 		                  
-		    var text = new fabric.Text('Hello world!', { 
-		    		left: 0,
+		    var text = new fabric.Text('Hello world!', { left: 0,
 		            top : 0,
 		            fontSize: 30,
 		            fontFamily: 'Arial',
@@ -256,16 +211,38 @@
 		            textAlign: 'left',
 		            hasControls: true,
 		            lockUniScaling: true,
-		            borderColor: controlColor,
-		            cornerColor: controlColor
+		            borderColor: '#fff',
+		            cornerColor: '#fff' 
 		    });
 		    
-		    createDraggableObject(text, 'testbutton');
+		    var activeObject, initialCanvas;
 		    
+		    canvases.canvas1.add(text);
+		    
+		    canvases.canvas1.on('mouse:down', function() {
+		            activeObject  = text;
+		            initialCanvas = this.lowerCanvasEl.id;
+		    });
+		    
+		    $(document).on('mouseup', function(evt) {
+		            canvasId = $(evt.target).siblings().attr('id');
+		                canvas.add(activeObject);
+		                if(canvasId !== initialCanvas) {
+		                	activeObject.setTop(0);
+		                	activeObject.setLeft(0);
+		                	canvas.renderAll();
+		                	// these two lines will make the original object snap back to whatever position you define
+		                	canvases[initialCanvas].getActiveObject().setTop(0);
+		                	canvases[initialCanvas].getActiveObject().setLeft(0);
+		                }
+		        initialCanvas = '';              
+		    });    
 		});
 		
-		/* Set control colours */
-		
+		/* Make mock-up unselectable */
+		for(var i = 0; i < 6; i++) {
+			canvas.item(i).selectable = false;
+		}
 	    </script>
 		
 		<div id="three-d-panel">

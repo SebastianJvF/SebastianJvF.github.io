@@ -38,7 +38,7 @@ div.information {
 
 nav, #two-d-preview, 
 div#three-d-panel,
-canvas.upper-canvas {
+canvas#twodpanel {
 	float: left;
 }
 
