@@ -54,10 +54,22 @@
 		$('#' + buttonName).mousedown(function() {
 			draggingStarted = true;
 			
+			/* Change mouse cursor while dragging */
+			$("nav").css('cursor', 'copy');
+			$("div").css('cursor', 'copy');
+			$("a").css('cursor', 'copy');
+			canvas.defaultCursor = 'copy';
+			
 			$("#fire-dragend").mouseup(function(e) {
 				if(draggingStarted == true) {
 					console.log("Mouseup");
 					draggingStarted = false;
+					
+					/* Change mouse cursor back as we're done dropping */
+					$("nav").css('cursor', 'auto');
+					$("div").css('cursor', 'auto');
+					$("a").css('cursor', 'auto');
+					canvas.defaultCursor = 'auto';
 					
 					/* Get mouse position on canvas */
 					var offset = $("#fire-dragend").offset();
@@ -65,7 +77,7 @@
 					
 					/* Add object */	
 					canvas.add(deepCopy);
-					showMessage("Button added", showMessageBlue);
+					showMessage("Added button", showMessageBlue);
 					
 					/* Set coordinates */
 					deepCopy.setTop(mouseCoordinates.y);
@@ -142,7 +154,7 @@
 				</form>
 			</div>	
 			
-			<h1>Push buttons</h1>
+			<h1>Push and rocker buttons</h1>
 			<div class="description">Buttons that spring back to their usual, unpushed state</div>
 			<div class="options">
 				<ul>
@@ -152,9 +164,11 @@
 				<span class="clear"></span>
 			</div>
 			
+			<!--
 			<h1>Knobs</h1>
 			<div class="description">Rotary controls that can be turned to indicate one of the available state positions</div>
 			<div class="options">Options panel</div>
+			-->
 			
 			<h1>Sliders</h1>
 			<div class="description">Control element to set a value by moving an indicator</div>
@@ -241,8 +255,7 @@
 		canvas.item(1).selectable = false;
 		canvas.item(2).selectable = false;
 		canvas.item(3).selectable = false;
-		canvas.item(4).selectable = false;
-		
+		canvas.item(4).selectable = false;		
 		
 		/** Add Drag and Drop Options **/
 		$(document).ready(function() {
@@ -260,8 +273,7 @@
 		            cornerColor: controlColor
 		    });
 		    
-		    createDraggableObject(text, 'testbutton');
-		    
+		    createDraggableObject(text, 'testbutton');		    
 		});
 		
 		/* Set control colours */
