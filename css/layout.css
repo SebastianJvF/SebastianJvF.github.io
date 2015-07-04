@@ -110,13 +110,7 @@ nav div.options ul, ul li {
 }
 
 nav div.options ul li {
-	float: left;
-}
-
-nav div.options ul li:last-of-type {
-	float: none;
-	clear: both;
-	display: block;
+	display: inline-block;
 }
 
 nav div.options a span {

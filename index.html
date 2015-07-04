@@ -17,7 +17,7 @@
 	<script type="text/javascript">	
 	/** APPLICATION **/
 	/* Variables */
-	var phoneModel;
+	var phoneModel = '';
 	var addedObjects;
 	
 	/* Phone model */
@@ -40,7 +40,8 @@
 	
 	/* $( ".inner" ).append( "<p>Test</p>" ); add all menu elements with jquery in an array of all objects*/
 	
-	/** Add Drag and Drop Options **/
+	/** ADD DRAG AND DROP OPTIONS **/
+	
 	$(document).ready(function() {
 	                  
 	    var text = new fabric.Text('Hello world!', { 
@@ -57,6 +58,18 @@
 	    });
 	    
 	    createDraggableObject(text, 'testbutton');
+	    
+	    var group = [];
+	    
+	            fabric.loadSVGFromURL("img/button-push-small.svg", function(objects,options) {
+	    
+	                var loadedObjects = new fabric.Group(group);	    
+	                createDraggableObject(loadedObjects, 'svgtest');
+	    
+	            }, function(item, object) {
+	                    object.set('id', item.getAttribute('id'));
+	                    group.push(object);
+	            });
 	    		    
 	});
 	</script>
@@ -89,12 +102,13 @@
 			<div class="description">Rockers and buttons that spring back to their usual, unpushed state</div>
 			<div class="options">
 				<ul>
-				<li><a href="#" id="testbutton"><span></span>Hello World</a></li>
+				<li><a href="#" id="small-push-button"><span></span>Small push button</a></li>
+				<li><a href="#" id="big-push-button"><span></span>Big push button</a></li>
+				<li><a href="#" id="rocker-button"><span></span>Rocker button</a></li>
 				</ul>
-				<span class="clear"></span>
 			</div>
 			
-			<!--
+			<!-- Not implemented as of today
 			<h1>Knobs</h1>
 			<div class="description">Rotary controls that can be turned to indicate one of the available state positions</div>
 			<div class="options">Options panel</div>
@@ -102,7 +116,13 @@
 			
 			<h1>Sliders</h1>
 			<div class="description">Control element to set a value by moving an indicator</div>
-			<div class="options">Options panel</div>
+			<div class="options">
+				<ul>
+				<li><a href="#" id="slider-2-positions"><span></span>2 positions</a></li>
+				<li><a href="#" id="slider-3-positions"><span></span>3 positions</a></li>
+				<li><a href="#" id="slider-5-positions"><span></span>5 positions</a></li>
+				</ul>
+			</div>
 		</nav>
 		
 		<div id="two-d-preview">
