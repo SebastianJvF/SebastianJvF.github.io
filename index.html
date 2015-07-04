@@ -40,36 +40,50 @@
 	
 	/* $( ".inner" ).append( "<p>Test</p>" ); add all menu elements with jquery in an array of all objects*/
 	
-	/** ADD DRAG AND DROP OPTIONS **/
-	
+	/** ADD DRAG AND DROP OPTIONS **/	
 	$(document).ready(function() {
-	                  
-	    var text = new fabric.Text('Hello world!', { 
-	    		left: 0,
-	            top : 0,
-	            fontSize: 30,
-	            fontFamily: 'Arial',
-	            fill: 'black',
-	            textAlign: 'left',
-	            hasControls: true,
-	            lockUniScaling: true,
-	            borderColor: controlColor,
-	            cornerColor: controlColor
-	    });
 	    
-	    createDraggableObject(text, 'testbutton');
+	    /** Push **/
+	    /* Small push button */
+	    var smallPushButton = [];
+	    fabric.loadSVGFromURL("img/buttons/small-push-button.svg", function(objects, options) {
+	    	
+	    	var loadedObjects = new fabric.Group(smallPushButton);
+	    	createDraggableObject(loadedObjects, 'small-push-button');
 	    
-	    var group = [];
+	    }, function(item, object) {
+	    		object.set('id', item.getAttribute('id'));
+	    		smallPushButton.push(object);
+	       }
+	    );
 	    
-	            fabric.loadSVGFromURL("img/button-push-small.svg", function(objects,options) {
+	    /* Big push button */
+	    var bigPushButton = [];
+	    fabric.loadSVGFromURL("img/buttons/big-push-button.svg", function(objects, options) {
+	    	
+	    	var loadedObjects = new fabric.Group(bigPushButton);
+	    	createDraggableObject(loadedObjects, 'big-push-button');
 	    
-	                var loadedObjects = new fabric.Group(group);	    
-	                createDraggableObject(loadedObjects, 'svgtest');
+	    }, function(item, object) {
+	    		object.set('id', item.getAttribute('id'));
+	    		bigPushButton.push(object);
+	       }
+	    );
 	    
-	            }, function(item, object) {
-	                    object.set('id', item.getAttribute('id'));
-	                    group.push(object);
-	            });
+	    /* Rocker button */
+	    var rockerButton = [];
+	    fabric.loadSVGFromURL("img/buttons/rocker-button.svg", function(objects, options) {
+	    	
+	    	var loadedObjects = new fabric.Group(rockerButton);
+	    	createDraggableObject(loadedObjects, 'rocker-button');
+	    
+	    }, function(item, object) {
+	    		object.set('id', item.getAttribute('id'));
+	    		rockerButton.push(object);
+	       }
+	    );
+	    
+	    /**  **/
 	    		    
 	});
 	</script>

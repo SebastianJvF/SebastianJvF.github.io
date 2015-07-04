@@ -123,6 +123,17 @@ nav div.options a span {
 	background-color: #ffffff;
 }
 
+/* Button icons */
+/* Push and rocker buttons */
+nav div.options a#small-push-button span { background-image: url(); }
+nav div.options a#big-push-button span { background-image: url(); }
+nav div.options a#rocker-button span { background-image: url(); }
+
+/* Sliders */
+nav div.options a#slider-2-positions span { background-image: url(); }
+nav div.options a#slider-3-positions span { background-image: url(); }
+nav div.options a#slider-5-positions span { background-image: url(); }
+
 nav div.options li a:link,
 nav div.options li a:visited {
 	width: 75px;
