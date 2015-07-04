@@ -37,7 +37,7 @@ div.information {
 }
 
 nav, #two-d-preview, 
-div#three-d-panel,
+div#three-d-preview,
 canvas#twodpanel {
 	float: left;
 }
@@ -53,7 +53,7 @@ nav {
 	background-color: #ffffff;
 }
 
-div#three-d-panel {
+div#three-d-preview {
 	width: 250px;
 }
 
@@ -71,7 +71,7 @@ nav h1 {
 
 nav .description,
 nav div.options,
-div#three-d-panel a,
+div#three-d-preview a,
 div#wrap div.information,
 div#info-message {
 	font-size: 1.3em;
@@ -150,14 +150,14 @@ nav div.options li a:focus {
 }
 
 /* 3d preview */
-div#three-d-preview {
+div#three-d-panel {
 	width: 250px;
 	height: 188px; /* 4:3 format */
 	background-color: #ffffff;
 }
 
-div#three-d-panel a:link,
-div#three-d-panel a:visited {
+div#three-d-preview a:link,
+div#three-d-preview a:visited {
 	width: 85%;
 	display: block;
 	padding: 11px 0;
@@ -170,9 +170,9 @@ div#three-d-panel a:visited {
 	background-color: #ffffff;
 }
 
-div#three-d-panel a:hover,
-div#three-d-panel a:active,
-div#three-d-panel a:focus {
+div#three-d-preview a:hover,
+div#three-d-preview a:active,
+div#three-d-preview a:focus {
 	color: #ffffff;
 	background-color: #FFAD53;
 }
