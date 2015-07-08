@@ -52,3 +52,21 @@ function createDraggableObject(fabricObject, buttonName) {
 		return false;
 	});
 }
+
+function addButtonAction(url, id) {
+	var group = [];	    
+	fabric.loadSVGFromURL(
+	        	
+	        	url, 
+	        	
+	        	function(objects, options) {
+	            	var loadedObjects = new fabric.Group(group);	    
+	            	createDraggableObject(loadedObjects, id);
+	            }, 
+	            
+	            function(item, object) {
+	                object.set('id', item.getAttribute('id'));
+	                group.push(object);
+	            }
+	);
+}

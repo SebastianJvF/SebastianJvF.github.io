@@ -12,15 +12,19 @@
 	
 	<script src="js/app/menu-toggles.js" type="text/javascript"></script>
 	<script src="js/app/information-messages.js" type="text/javascript"></script>
-	<script src="js/app/draggable-objects.js" type="text/javascript"></script>
+	<script src="js/app/add-draggable-objects.js" type="text/javascript"></script>
+	<script src="js/app/delete-objects.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">	
 	/** APPLICATION **/
-	/* Variables */
-	var phoneModel = '';
+	/* VARIABLES */
+	var phoneModel;
 	var addedObjects;
 	
-	/* Phone model */
+	/* BOOLEANS that need to be true */
+	var phoneModelChosen = false;
+	
+	/* PHONE MODEL */
 	/* Make the user choose a phone model (disabled), show message */
 	/* TO ADD NEW OBJECTS: add to the list under "Phone model"! */
 	$(document).ready(function() {
@@ -28,53 +32,27 @@
 		$('#phone-model').change(function () {
 		    if($(this).val() != '') {
 		    	phoneModel = $(this).val();
+		    	phoneModelChosen = true;
 		    	showMessage('Phone model chosen:<br>' +  $("#phone-model option:selected").text(), showMessageBlue);
 		    	// $('#canvas').show();
 		    } else {
 		    	// $('#canvas').hide();
 				phoneModel = '';
+				phoneModelChosen = false;
 				showMessage('Please choose a phone model!', showMessageRed);
 		    }
-		})
-	});
-	
-	/* $( ".inner" ).append( "<p>Test</p>" ); add all menu elements with jquery in an array of all objects*/
-	
-	/** ADD DRAG AND DROP OPTIONS **/
-	
-	$(document).ready(function() {
-	                  
-	    var text = new fabric.Text('Hello world!', { 
-	    		left: 0,
-	            top : 0,
-	            fontSize: 30,
-	            fontFamily: 'Arial',
-	            fill: 'black',
-	            textAlign: 'left',
-	            hasControls: true,
-	            lockUniScaling: true,
-	            borderColor: controlColor,
-	            cornerColor: controlColor
-	    });
+		});
 	    
-	    createDraggableObject(text, 'testbutton');
+	    /* BUTTONS */
+	    /* Add drag actions to add buttons to the 2d panel */
+	    /* TO ADD NEW OBJECTS: Add under html list, here, and in button-object.js! */
+	    addButtonAction('img/buttons/small-push-button.svg', 'small-push-button');
+	    addButtonAction('img/buttons/big-push-button.svg', 'big-push-button');
+	    addButtonAction('img/buttons/rocker-button.svg', 'rocker-button');
 	    
-	    var group = [];
-	    
-	            fabric.loadSVGFromURL(
-	            	
-	            	'img/buttons/small-push-button.svg', 
-	            	
-	            	function(objects, options) {
-	                	var loadedObjects = new fabric.Group(group);	    
-	                	createDraggableObject(loadedObjects, 'svgtest');
-	                }, 
-	                
-	                function(item, object) {
-	                    object.set('id', item.getAttribute('id'));
-	                    group.push(object);
-	                }
-	            );
+	    addButtonAction('img/buttons/slider-2-positions.svg', 'slider-2-positions');
+	    addButtonAction('img/buttons/slider-3-positions.svg', 'slider-3-positions');
+	    addButtonAction('img/buttons/slider-5-positions.svg', 'slider-5-positions');
 	    		    
 	});
 	</script>
@@ -107,10 +85,10 @@
 			<div class="description">Rockers and buttons that spring back to their usual, unpushed state</div>
 			<div class="options">
 				<ul>
-				<li><a href="#" id="testbutton"><span></span>Hello World</a></li>
-				<li><a href="#" id="svgtest"><span></span>Hallo</a></li>
+				<li><a href="#" id="small-push-button"><span></span>Small Push Button</a></li>
+				<li><a href="#" id="big-push-button"><span></span>Big Push Button</a></li>
+				<li><a href="#" id="rocker-button"><span></span>Rocker Button</a></li>
 				</ul>
-				<span class="clear"></span>
 			</div>
 			
 			<!-- Not implemented as of today
@@ -121,7 +99,15 @@
 			
 			<h1>Sliders</h1>
 			<div class="description">Control element to set a value by moving an indicator</div>
-			<div class="options">Options panel</div>
+			<div class="options">
+				<ul>
+				<li><a href="#" id="slider-2-positions"><span></span>2 Positions</a></li>
+				<li><a href="#" id="slider-3-positions"><span></span>3 Positions</a></li>
+				<li><a href="#" id="slider-5-positions"><span></span>5 Positions</a></li>
+				</ul>
+			</div>
+			
+			<a href="#" title="Delete selected object" id="delete-item">Delete selected object</a>
 		</nav>
 		
 		<div id="two-d-preview">

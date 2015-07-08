@@ -73,7 +73,8 @@ nav .description,
 nav div.options,
 div#three-d-preview a,
 div#wrap div.information,
-div#info-message {
+div#info-message,
+#delete-item {
 	font-size: 1.3em;
 	font-style: italic;
 	line-height: 1.5;
@@ -125,14 +126,14 @@ nav div.options a span {
 
 /* Button icons */
 /* Push and rocker buttons */
-nav div.options a#small-push-button span { background-image: url(); }
-nav div.options a#big-push-button span { background-image: url(); }
-nav div.options a#rocker-button span { background-image: url(); }
+nav div.options a#small-push-button span { background-image: url(../img/ui/push.gif); }
+nav div.options a#big-push-button span { background-image: url(../img/ui/push.gif); }
+nav div.options a#rocker-button span { background-image: url(../img/ui/rocker.gif); }
 
 /* Sliders */
-nav div.options a#slider-2-positions span { background-image: url(); }
-nav div.options a#slider-3-positions span { background-image: url(); }
-nav div.options a#slider-5-positions span { background-image: url(); }
+nav div.options a#slider-2-positions span { background-image: url(../img/ui/slider.gif); }
+nav div.options a#slider-3-positions span { background-image: url(../img/ui/slider.gif); }
+nav div.options a#slider-5-positions span { background-image: url(../img/ui/slider.gif); }
 
 nav div.options li a:link,
 nav div.options li a:visited {
@@ -162,7 +163,9 @@ div#three-d-panel {
 }
 
 div#three-d-preview a:link,
-div#three-d-preview a:visited {
+div#three-d-preview a:visited,
+#delete-item:link,
+#delete-item:visited {
 	width: 85%;
 	display: block;
 	padding: 11px 0;
@@ -177,7 +180,10 @@ div#three-d-preview a:visited {
 
 div#three-d-preview a:hover,
 div#three-d-preview a:active,
-div#three-d-preview a:focus {
+div#three-d-preview a:focus,
+#delete-item:hover,
+#delete-item:active,
+#delete-item:focus {
 	color: #ffffff;
 	background-color: #FFAD53;
 }
