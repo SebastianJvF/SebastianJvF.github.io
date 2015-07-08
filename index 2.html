@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" media="all" href="css/reset.css" /> <!-- reset css -->
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="js/fabric/fabric.min.js"></script>
+
+<style>
+    body{ background-color: ivory; }
+    canvas{border: 1px solid red; }
+</style>
+
+<script>
+    $(function(){
+
+        var canvas = new fabric.Canvas('canvas');
+        var group = [];
+
+		// fabric.loadSVGFromURL("http://fabricjs.com/assets/1.svg",function(objects,options) working
+        fabric.loadSVGFromURL("img/buttons/big-push-button.svg",function(objects,options) {
+
+            var loadedObjects = new fabric.Group(group);
+
+            loadedObjects.set({
+                    left: 0,
+                    top: 0
+            });
+
+            canvas.add(loadedObjects);
+            canvas.renderAll();
+
+        },function(item, object) {
+                object.set('id', item.getAttribute('id'));
+                group.push(object);
+        });
+
+
+    }); // end $(function(){});
+</script>
+
+</head>
+
+<body>
+    <canvas id="canvas" width="300" height="300"></canvas> 
+</body>
+</html>

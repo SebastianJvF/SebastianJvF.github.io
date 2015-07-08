@@ -40,50 +40,68 @@
 	
 	/* $( ".inner" ).append( "<p>Test</p>" ); add all menu elements with jquery in an array of all objects*/
 	
-	/** ADD DRAG AND DROP OPTIONS **/	
+	/** ADD DRAG AND DROP OPTIONS **/
+	
 	$(document).ready(function() {
+	                  
+	    var text = new fabric.Text('Hello world!', { 
+	    		left: 0,
+	            top : 0,
+	            fontSize: 30,
+	            fontFamily: 'Arial',
+	            fill: 'black',
+	            textAlign: 'left',
+	            hasControls: true,
+	            lockUniScaling: true,
+	            borderColor: controlColor,
+	            cornerColor: controlColor
+	    });
 	    
-	    /** Push **/
-	    /* Small push button */
-	    var smallPushButton = [];
-	    fabric.loadSVGFromURL("img/buttons/small-push-button.svg", function(objects, options) {
-	    	
-	    	var loadedObjects = new fabric.Group(smallPushButton);
-	    	createDraggableObject(loadedObjects, 'small-push-button');
+	    createDraggableObject(text, 'testbutton');
 	    
-	    }, function(item, object) {
-	    		object.set('id', item.getAttribute('id'));
-	    		smallPushButton.push(object);
-	       }
-	    );
-	    
-	    /* Big push button */
-	    var bigPushButton = [];
-	    fabric.loadSVGFromURL("img/buttons/big-push-button.svg", function(objects, options) {
-	    	
-	    	var loadedObjects = new fabric.Group(bigPushButton);
-	    	createDraggableObject(loadedObjects, 'big-push-button');
-	    
-	    }, function(item, object) {
-	    		object.set('id', item.getAttribute('id'));
-	    		bigPushButton.push(object);
-	       }
-	    );
-	    
-	    /* Rocker button */
-	    var rockerButton = [];
-	    fabric.loadSVGFromURL("img/buttons/rocker-button.svg", function(objects, options) {
-	    	
-	    	var loadedObjects = new fabric.Group(rockerButton);
-	    	createDraggableObject(loadedObjects, 'rocker-button');
-	    
-	    }, function(item, object) {
-	    		object.set('id', item.getAttribute('id'));
-	    		rockerButton.push(object);
-	       }
-	    );
-	    
-	    /**  **/
+//	    var group = [];
+//	    
+//	            fabric.loadSVGFromURL(
+//	            	
+//	            	'img/buttons/small-push-button.svg', 
+//	            	
+//	            	function(objects, options) {
+//	                	var loadedObjects = new fabric.Group(group);	    
+//	                	createDraggableObject(loadedObjects, 'svgtest');
+//	                }, 
+//	                
+//	                function(item, object) {
+//	                    object.set('id', item.getAttribute('id'));
+//	                    group.push(object);
+//	                }
+//	            );
+//        var group = [];
+//
+//        fabric.loadSVGFromURL("http://fabricjs.com/assets/1.svg",function(objects,options) {
+//
+//            var loadedObjects = new fabric.Group(group);
+//
+//            loadedObjects.set({
+//                    left: 100,
+//                    top: 100,
+//                    width:175,
+//                    height:175
+//            });
+//
+//            canvas.add(loadedObjects);
+//            canvas.renderAll();
+//
+//        },function(item, object) {
+//                object.set('id',item.getAttribute('id'));
+//                group.push(object);
+//        });
+	            
+	            fabric.loadSVGFromURL('img/buttons/small-push-button.svg', function(objects, options) {
+	            	var obj = fabric.util.groupSVGElements(objects, options);
+	            	canvas.add(obj);
+	            	canvas.calcOffset();
+	            	canvas.renderAll();
+	            }
 	    		    
 	});
 	</script>
@@ -116,10 +134,10 @@
 			<div class="description">Rockers and buttons that spring back to their usual, unpushed state</div>
 			<div class="options">
 				<ul>
-				<li><a href="#" id="small-push-button"><span></span>Small push button</a></li>
-				<li><a href="#" id="big-push-button"><span></span>Big push button</a></li>
-				<li><a href="#" id="rocker-button"><span></span>Rocker button</a></li>
+				<li><a href="#" id="testbutton"><span></span>Hello World</a></li>
+				<li><a href="#" id="svgtest"><span></span>Hallo</a></li>
 				</ul>
+				<span class="clear"></span>
 			</div>
 			
 			<!-- Not implemented as of today
@@ -130,13 +148,7 @@
 			
 			<h1>Sliders</h1>
 			<div class="description">Control element to set a value by moving an indicator</div>
-			<div class="options">
-				<ul>
-				<li><a href="#" id="slider-2-positions"><span></span>2 positions</a></li>
-				<li><a href="#" id="slider-3-positions"><span></span>3 positions</a></li>
-				<li><a href="#" id="slider-5-positions"><span></span>5 positions</a></li>
-				</ul>
-			</div>
+			<div class="options">Options panel</div>
 		</nav>
 		
 		<div id="two-d-preview">
