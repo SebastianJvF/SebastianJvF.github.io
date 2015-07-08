@@ -59,49 +59,22 @@
 	    
 	    createDraggableObject(text, 'testbutton');
 	    
-//	    var group = [];
-//	    
-//	            fabric.loadSVGFromURL(
-//	            	
-//	            	'img/buttons/small-push-button.svg', 
-//	            	
-//	            	function(objects, options) {
-//	                	var loadedObjects = new fabric.Group(group);	    
-//	                	createDraggableObject(loadedObjects, 'svgtest');
-//	                }, 
-//	                
-//	                function(item, object) {
-//	                    object.set('id', item.getAttribute('id'));
-//	                    group.push(object);
-//	                }
-//	            );
-//        var group = [];
-//
-//        fabric.loadSVGFromURL("http://fabricjs.com/assets/1.svg",function(objects,options) {
-//
-//            var loadedObjects = new fabric.Group(group);
-//
-//            loadedObjects.set({
-//                    left: 100,
-//                    top: 100,
-//                    width:175,
-//                    height:175
-//            });
-//
-//            canvas.add(loadedObjects);
-//            canvas.renderAll();
-//
-//        },function(item, object) {
-//                object.set('id',item.getAttribute('id'));
-//                group.push(object);
-//        });
-	            
-	            fabric.loadSVGFromURL('img/buttons/small-push-button.svg', function(objects, options) {
-	            	var obj = fabric.util.groupSVGElements(objects, options);
-	            	canvas.add(obj);
-	            	canvas.calcOffset();
-	            	canvas.renderAll();
-	            }
+	    var group = [];
+	    
+	            fabric.loadSVGFromURL(
+	            	
+	            	'img/buttons/small-push-button.svg', 
+	            	
+	            	function(objects, options) {
+	                	var loadedObjects = new fabric.Group(group);	    
+	                	createDraggableObject(loadedObjects, 'svgtest');
+	                }, 
+	                
+	                function(item, object) {
+	                    object.set('id', item.getAttribute('id'));
+	                    group.push(object);
+	                }
+	            );
 	    		    
 	});
 	</script>
