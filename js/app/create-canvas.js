@@ -100,6 +100,7 @@ function roundAngle(fabricObj) {
 canvas.on("object:rotating", function(rotEvtData) {
 	var fabricObj = rotEvtData.target;
 	closestAngle = roundAngle(fabricObj);
+	console.log(normalizedAngle + " - snap to: 180");
 });
 
 canvas.on("object:modified", function(modEvtData) {
