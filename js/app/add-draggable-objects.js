@@ -27,6 +27,20 @@ function createDraggableObject(fabricObject, buttonName) {
 				$("a").css('cursor', 'auto');
 				canvas.defaultCursor = 'auto';
 				
+				/* Disable scaling */
+				deepCopy.lockScalingX = deepCopy.lockScalingY = true;
+				deepCopy.setControlsVisibility({
+				    mt: false,
+				    mb: false,
+				    ml: false,
+				    mr: false,
+				    bl: false,
+				    br: false,
+				    tl: false,
+				    tr: false,
+				    mtr: true // Enable rotation
+				});
+				
 				/* Get mouse position on canvas */
 				var offset = $("#fire-dragend").offset();
 				var mouseCoordinates = {'x': e.pageX-offset.left, 'y': e.pageY-offset.top};
