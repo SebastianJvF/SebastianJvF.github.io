@@ -78,7 +78,7 @@ function roundAngle(fabricObj) {
 	var currentAngle = fabricObj.angle; // get angle of the currently selected Object
 	var normalizedAngle = Math.abs(Math.round(Math.asin(Math.sin(currentAngle * Math.PI/360.0)) * 360.0/Math.PI)); // Normalize the angle
 	snap = true;
-	alert(normalizedAngle);
+	console.log(normalizedAngle);
 	
 	if (normalizedAngle >= 45 && normalizedAngle < 135) {
 		return 90;
