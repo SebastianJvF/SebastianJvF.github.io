@@ -72,31 +72,14 @@ canvas.item(4).selectable = false;
 
 /* Allow rotation only in 90-degree-increments */
 var closestAngle = 0;
+
+// Prevent the object from moving after having rotated
 var snap = false;
 
-function roundAngle(fabricObj) {
-	var currentAngle = fabricObj.angle; // get angle of the currently selected Object
-	var normalizedAngle = Math.abs(Math.round(Math.asin(Math.sin(currentAngle * Math.PI/360.0)) * 360.0/Math.PI)); // Normalize the angle
-	snap = true;
-	console.log(normalizedAngle);
-	
-	if (normalizedAngle >= 45 && normalizedAngle < 135) {
-		return 90;
-	} else if (normalizedAngle >= 135 && normalizedAngle < 225) {
-		return 180;
-	} else if (normalizedAngle >= 225 && normalizedAngle < 315) {
-		return 270;
-	} else if ((normalizedAngle >= 315 && normalizedAngle <= 360) || (normalizedAngle >= 0 && normalizedAngle < 45)) {
-		return 0;
-	}
-	
-	return currentAngle;
-}
-
-/* When rotating, use roundAngle to round angle to  */
+/* When rotating, use straighten to round angle to 0, 90, 180 and 270 respectively */
 canvas.on("object:rotating", function(rotEvtData) {
 	var fabricObj = rotEvtData.target;
-	closestAngle = roundAngle(fabricObj);
+	closestAngle = fabricObj.straighten();
 });
 
 canvas.on("object:modified", function(modEvtData) {
