@@ -78,18 +78,15 @@ function roundAngle(fabricObj) {
 	var currentAngle = fabricObj.angle; // get angle of the currently selected Object
 	var normalizedAngle = Math.abs(Math.round(Math.asin(Math.sin(currentAngle * Math.PI/360.0)) * 360.0/Math.PI)); // Normalize the angle
 	snap = true;
+	alert(normalizedAngle);
 	
 	if (normalizedAngle >= 45 && normalizedAngle < 135) {
-		console.log(normalizedAngle + " - snap to: 90");
 		return 90;
 	} else if (normalizedAngle >= 135 && normalizedAngle < 225) {
-		console.log(normalizedAngle + " - snap to: 180");
 		return 180;
 	} else if (normalizedAngle >= 225 && normalizedAngle < 315) {
-		console.log(normalizedAngle + " - snap to: 270");
 		return 270;
 	} else if ((normalizedAngle >= 315 && normalizedAngle <= 360) || (normalizedAngle >= 0 && normalizedAngle < 45)) {
-		console.log(normalizedAngle + " - snap to: 0");
 		return 0;
 	}
 	
@@ -100,7 +97,6 @@ function roundAngle(fabricObj) {
 canvas.on("object:rotating", function(rotEvtData) {
 	var fabricObj = rotEvtData.target;
 	closestAngle = roundAngle(fabricObj);
-	console.log(normalizedAngle + " - snap to: 180");
 });
 
 canvas.on("object:modified", function(modEvtData) {
