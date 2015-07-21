@@ -68,13 +68,15 @@ function createDraggableObject(fabricObject, buttonName) {
 }
 
 function addButtonAction(url, id) {
-	var group = [];	    
+	var group = [];	   
+	var loadedObjects;
+	 
 	fabric.loadSVGFromURL(
 	        	
 	        	url, 
 	        	
 	        	function(objects, options) {
-	            	var loadedObjects = new fabric.Group(group);	    
+	            	loadedObjects = new fabric.Group(group);	    
 	            	createDraggableObject(loadedObjects, id);
 	            }, 
 	            
