@@ -21,6 +21,7 @@
 	/* VARIABLES to be used else where */
 	/* Phone model */
 	var phoneModel;
+	var objectsCorrectlyPlaced;
 	
 	/* fabric/threejs objects */
 	var addedObjects;
@@ -166,24 +167,30 @@
 	    	}
 	    	
 	    	/* Check wether object is placed in or outside the 2D phone model by checking all phone model elements */
-	    	if (modifiedObj.intersectsWithObject(canvas.item(0)) || 
-	    		modifiedObj.intersectsWithObject(canvas.item(1)) || 
-	    		modifiedObj.intersectsWithObject(canvas.item(2)) || 
-	    		modifiedObj.intersectsWithObject(canvas.item(3)) || 
-	    		modifiedObj.intersectsWithObject(canvas.item(4))) {
+	    	if ((modifiedObj.isContainedWithinObject(canvas.item(0)) ||
+	    		 modifiedObj.isContainedWithinObject(canvas.item(1)) ||
+	    		 modifiedObj.isContainedWithinObject(canvas.item(2)) ||
+	    		 modifiedObj.isContainedWithinObject(canvas.item(3)) ||
+	    		 modifiedObj.isContainedWithinObject(canvas.item(4))) 
+	    		 && !modifiedObj.intersectsWithObject(canvas.item(5))) {
 	   
 	   			modifiedObj.set({
-	   				'borderColor': showMessageBlue,
-	   				'fill': showMessageBlue
+	   				'borderColor' : showMessageBlue
 	   			});
+	   			
+	   			objectsCorrectlyPlaced = true;
 	   			
 	    	} else {
 	    		modifiedObj.set({
-	    				'borderColor': showMessageRed,
-	    				'fill': showMessageRed
-	    			});
+	    				'borderColor' : showMessageRed
+	    		});
+	    			
+	    		showMessage("The object you placed will not be rendered as it is intersecting with the borders of the case. Please relocate them!", showMessageRed);
+	    			
+	    		objectsCorrectlyPlaced = false;
 	    	}
 	    	
+	    	/* Update the canvas */
 	    	modifiedObj.setCoords();
 	    	canvas.renderAll();
 	    	
