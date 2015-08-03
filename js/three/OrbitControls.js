@@ -487,6 +487,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	}
 
+	/*
 	function onMouseWheel( event ) {
 
 		if ( scope.enabled === false || scope.noZoom === true || state !== STATE.NONE ) return;
@@ -521,6 +522,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 		scope.dispatchEvent( endEvent );
 
 	}
+	*/
 
 	function onKeyDown( event ) {
 
@@ -688,8 +690,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
 	this.domElement.addEventListener( 'mousedown', onMouseDown, false );
-	this.domElement.addEventListener( 'mousewheel', onMouseWheel, false );
-	this.domElement.addEventListener( 'DOMMouseScroll', onMouseWheel, false ); // firefox
+	// this.domElement.addEventListener( 'mousewheel', onMouseWheel, false );
+	// this.domElement.addEventListener( 'DOMMouseScroll', onMouseWheel, false ); // firefox
 
 	this.domElement.addEventListener( 'touchstart', touchstart, false );
 	this.domElement.addEventListener( 'touchend', touchend, false );

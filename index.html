@@ -12,6 +12,7 @@
 	
 	<script src="js/three/three.js" type="text/javascript"></script>
 	<script src="js/three/OrbitControls.js" type="text/javascript"></script>
+	<script src="js/three/STLLoader.js" type="text/javascript"></script>
 	
 	<script src="js/app/menu-toggles.js" type="text/javascript"></script>
 	<script src="js/app/information-messages.js" type="text/javascript"></script>
@@ -20,44 +21,61 @@
 	<script src="js/app/create-two-d-phone-model.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
-	/* Three.js settings */
-	var widthThree = 250, heightThree = 188;
-	var renderer, scene, camera, cube;
+    // Width and height
+    var widthThree = 250, heightThree = 188;
     
-    /* Display the 3D-panel in the box */
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, widthThree / heightThree, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer();
+    
+    // Render
+    function animate() {
+    	requestAnimationFrame(animate);	
+        renderer.render(scene, camera);
+    }
+    
+    // Add stl objects and a name
+    function addSTLObject(url, name) {
+    	var loader = new THREE.STLLoader();
+    	loader.load(url, function (geometry) {
+    		
+    		var material = new THREE.MeshPhongMaterial({ color: 0xff5533 });
+    		var mesh = new THREE.Mesh(geometry, material);
+    		// To scale element, use:
+    		// mesh.scale.set(0.01, 0.01, 0.01);
+    		// Add a name to the object to find it if it needs to be removed
+    		mesh.name = name;
+    		mesh.position.x = 0;
+    		mesh.position.y = 0;
+    		mesh.position.z = 0;
+    		
+    		scene.add(mesh);
+    	
+    	});
+    }
+	
 	$(document).ready(function() {
-		// Renderer
-		renderer = new THREE.WebGLRenderer();
-		renderer.setSize(widthThree, heightThree);
+		// Settings
+		camera.position.z = 100;
 		renderer.setClearColor(0xffffff);	
-		scene = new THREE.Scene();
+		renderer.setSize(widthThree, heightThree);
 		
-		// Display three.js in the 3D-panel
+		// Display in 3D panel
 		$('#three-d-panel').append(renderer.domElement);
-		
-		// Camera
-		camera = new THREE.PerspectiveCamera(45, widthThree / heightThree , 0.1, 1000);
-		camera.position.z = 550;
-		scene.add(camera);
 		
 		// Add drag controls
 		var controls = new THREE.OrbitControls(camera);
 		controls.damping = 0.2;
-		controls.addEventListener('change', render);
-    	
-		cube = new THREE.Mesh(new THREE.CubeGeometry(200, 200, 200), new THREE.MeshBasicMaterial({color:0xffff00, wireframe: true}));
-		cube.position.y = 0;
-		cube.position.z = 0;
-		scene.add(cube);
-    
-		requestAnimationFrame(render);
+		controls.addEventListener('change', animate);
+		
+		// Add lights
+		scene.add(new THREE.AmbientLight(0x555555));
+		var pointlight = new THREE.PointLight(0xff0000, 1, 100);
+		pointlight.position.set(50, 50, 50);
+		scene.add(pointlight);
+		
+		animate();
 	});
-    
-    /* Animation */
-	function render(){
-		requestAnimationFrame(render);
-		renderer.render(scene, camera);
-    };
 	</script>
 	
 	<script type="text/javascript">	
@@ -90,6 +108,12 @@
 		    			heightPhone = 310;
 		    			
 		    			createTwoDPhoneModel(depthPhone, widthPhone, heightPhone);
+		    			addSTLObject('model/cases/iphone5.stl', 'phone-model');
+		    			
+		    			camera.position.x = 0;
+		    			camera.position.y = 0;
+		    			camera.position.z = 100;
+		    			camera.lookAt(new THREE.Vector3(0,0,0));
 		    		}
 		    		
 		    	$('#two-d-panel').show();	
@@ -99,6 +123,9 @@
 				phoneModel = '';
 				phoneModelChosen = false;
 				showMessage('Please choose a phone model!', showMessageRed);
+				
+				var phoneModelAdded = scene.getObjectByName('phone-model', true);
+				scene.remove(phoneModelAdded);
 		    }
 		});
 		    
@@ -135,7 +162,7 @@
 				<form id="application">
 				<select id="phone-model">
 				<option value="">Please choose...</option>
-				<option value="iphone-5">iPhone 5</option>
+				<option value="iphone-5" id="iphone-5">iPhone 5</option>
 				</select>
 				</form>
 			</div>	
