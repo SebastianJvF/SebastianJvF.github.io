@@ -109,8 +109,8 @@
 		
 		var phoneModelAdded = scene.getObjectByName('phone-model', true);
 		
-		//var box = new THREE.Box3().setFromObject(phoneModelAdded);
-		// console.log( box.min, box.max, box.size() );
+		var box = new THREE.Box3().setFromObject(phoneModelAdded);
+		console.log( box.min, box.max, box.size() );
 		
 		animate();
 	});
