@@ -46,7 +46,6 @@
     		mesh.position.x = 0;
     		mesh.position.y = 0;
     		mesh.position.z = 0;
-    		geometry.computeBoundingBox();
     		
     		scene.add(mesh);
     	});
@@ -106,10 +105,10 @@
 		
 		addSTLObject('model/cases/iphone5.stl', 'phone-model');
 		var phoneModelAdded = scene.getObjectByName('phone-model', true);
-		phoneModelAdded.boundingBox
 		
 		var helper = new THREE.BoundingBoxHelper(phoneModelAdded, 0x000000);
 		scene.add(helper);
+		console.log(helper.box.min);
 		
 		//var box = new THREE.Box3().setFromObject(phoneModelAdded);
 		//console.log( box.min, box.max, box.size() );
