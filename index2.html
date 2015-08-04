@@ -34,6 +34,7 @@
     
     // Add stl objects and a name
     function addSTLObject(url, name) {
+    	var bbox;
     	var loader = new THREE.STLLoader();
     	loader.load(url, function (geometry) {
     		
@@ -47,8 +48,12 @@
     		mesh.position.y = 0;
     		mesh.position.z = 0;
     		
+    		bbox = new THREE.Box3().setFromObject(mesh);
+    		
     		scene.add(mesh);
     	});
+    	
+    	return bbox;
     }
     
     // Add axes
@@ -103,10 +108,8 @@
 		var axes = buildAxes(1000);
 		scene.add(axes);
 		
-		addSTLObject('model/cases/iphone5.stl', 'phone-model');
-		var phoneModelAdded = scene.getObjectByName('phone-model', true);
-		
-		var bbox = new THREE.Box3().setFromObject(phoneModelAdded);
+		var bbox = addSTLObject('model/cases/iphone5.stl', 'phone-model');
+		scene.add(bbox, 0x000000);
 		
 		//var box = new THREE.Box3().setFromObject(phoneModelAdded);
 		//console.log( box.min, box.max, box.size() );
