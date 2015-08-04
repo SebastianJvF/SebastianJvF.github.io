@@ -51,9 +51,9 @@
     		bbox = new THREE.Box3().setFromObject(mesh);
     		
     		scene.add(mesh);
+    		
+    		return bbox;
     	});
-    	
-    	return bbox;
     }
     
     // Add axes
@@ -109,7 +109,7 @@
 		scene.add(axes);
 		
 		var bbox = addSTLObject('model/cases/iphone5.stl', 'phone-model');
-		scene.add(bbox, 0x000000);
+		scene.add(bbox);
 		
 		//var box = new THREE.Box3().setFromObject(phoneModelAdded);
 		//console.log( box.min, box.max, box.size() );
