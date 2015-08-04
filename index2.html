@@ -106,9 +106,7 @@
 		addSTLObject('model/cases/iphone5.stl', 'phone-model');
 		var phoneModelAdded = scene.getObjectByName('phone-model', true);
 		
-		var helper = new THREE.BoundingBoxHelper(phoneModelAdded, 0x000000);
-		scene.add(helper);
-		console.log(phoneModelAdded);
+		var bbox = new THREE.Box3().setFromObject(phoneModelAdded);
 		
 		//var box = new THREE.Box3().setFromObject(phoneModelAdded);
 		//console.log( box.min, box.max, box.size() );
