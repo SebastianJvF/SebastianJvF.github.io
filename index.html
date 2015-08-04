@@ -11,8 +11,9 @@
 	<script src="js/jquery/jquery-1.11.3.js" type="text/javascript"></script>
 	
 	<script src="js/three/three.js" type="text/javascript"></script>
-	<script src="js/three/OrbitControls.js" type="text/javascript"></script>
 	<script src="js/three/STLLoader.js" type="text/javascript"></script>
+	<script src="js/three/OrbitControls.js" type="text/javascript"></script>
+	<script src="js/three/Box3.js" type="text/javascript"></script>
 	
 	<script src="js/app/menu-toggles.js" type="text/javascript"></script>
 	<script src="js/app/information-messages.js" type="text/javascript"></script>
@@ -24,14 +25,30 @@
     // Width and height
     var widthThree = 250, heightThree = 188;
     
+    // Scene, Camera, Renderer
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(75, widthThree / heightThree, 0.1, 1000);
     var renderer = new THREE.WebGLRenderer();
+    var controls;
     
     // Render
     function animate() {
     	requestAnimationFrame(animate);	
+    	
+    	// Rotate around the object
+		// var rotationSpeed = 0.01;
+    	
+    	// var x = camera.position.x;
+    	// var z = camera.position.z;
+    	
+    	// camera.position.x = x * Math.cos(rotationSpeed) + z * Math.sin(rotationSpeed);
+    	// camera.position.z = z * Math.cos(rotationSpeed) - x * Math.sin(rotationSpeed);    	
+    	// camera.lookAt(new THREE.Vector3(0,0,0));
+    	
         renderer.render(scene, camera);
+        
+        // Update controls
+        controls.update();
     }
     
     // Add stl objects and a name
@@ -56,17 +73,15 @@
 	
 	$(document).ready(function() {
 		// Settings
-		camera.position.z = 100;
+		camera.position.z = 120;
 		renderer.setClearColor(0xffffff);	
 		renderer.setSize(widthThree, heightThree);
 		
+		// Add orbit controls
+		controls = new THREE.OrbitControls(camera, renderer.domElement);
+		
 		// Display in 3D panel
 		$('#three-d-panel').append(renderer.domElement);
-		
-		// Add drag controls
-		var controls = new THREE.OrbitControls(camera);
-		controls.damping = 0.2;
-		controls.addEventListener('change', animate);
 		
 		// Add lights
 		scene.add(new THREE.AmbientLight(0x555555));
@@ -109,11 +124,6 @@
 		    			
 		    			createTwoDPhoneModel(depthPhone, widthPhone, heightPhone);
 		    			addSTLObject('model/cases/iphone5.stl', 'phone-model');
-		    			
-		    			camera.position.x = 0;
-		    			camera.position.y = 0;
-		    			camera.position.z = 100;
-		    			camera.lookAt(new THREE.Vector3(0,0,0));
 		    		}
 		    		
 		    	$('#two-d-panel').show();	
@@ -250,6 +260,7 @@
 	   			
 	   			/* Add a custom variable to the fabric object to indicate wether it is correctly placed or not */
 	   			modifiedObj.correctlyPlaced = true;
+	   			showMessage("Object correctly placed");
 	   			
 	    	} else {
 	    		modifiedObj.set({
@@ -257,8 +268,7 @@
 	    		});
 	    			
 	    		/* Add a custom variable to the fabric object to indicate wether it is correctly placed or not */
-	    		modifiedObj.correctlyPlaced = false;
-	    		
+	    		modifiedObj.correctlyPlaced = false;	
 	    		showMessage("The object you placed will not be rendered as it is intersecting with the borders of the case. Please relocate them!", showMessageRed);
 	    	}
 	    	
