@@ -110,8 +110,9 @@
 		
 		var phoneModelAdded = scene.getObjectByName('phone-model', true);
 		
-		var box = new THREE.Box3().setFromObject(axes);
-		console.log( box.min, box.max, box.size() );
+		var bbox = new THREE.BoundingBoxHelper( phoneModelAdded, hex );
+		bbox.update();
+		scene.add( bbox );
 		
 		animate();
 	});
