@@ -11,11 +11,9 @@
 	
 	<script src="js/three/three.js" type="text/javascript"></script>
 	<script src="js/three/STLLoader.js" type="text/javascript"></script>
-	<script src="js/three/ColladaLoader.js" type="text/javascript"></script>
 	<script src="js/three/OrbitControls.js" type="text/javascript"></script>
-	<script src="js/three/Box3.js" type="text/javascript"></script>
 	
-	<script type="text/javascript">
+	<script type="text/javascript">    
     // Width and height
     var widthThree = 600, heightThree = 600;
     
@@ -24,6 +22,10 @@
     var camera = new THREE.PerspectiveCamera(75, widthThree / heightThree, 0.1, 10000);
     var renderer = new THREE.WebGLRenderer();
     var controls;
+    
+    // STLs
+    var phoneCase;
+    var buttonList = [];
     
     // Render
     function animate() {
@@ -34,7 +36,6 @@
     
     // Add stl objects and a name
     function addSTLObject(url, name) {
-    	var bbox;
     	var loader = new THREE.STLLoader();
     	loader.load(url, function (geometry) {
     		
@@ -48,45 +49,64 @@
     		mesh.position.y = 0;
     		mesh.position.z = 0;
     		
-    		bbox = new THREE.Box3().setFromObject(mesh);
+    		// Compute a bounding box for the element
+    		bbox = new THREE.BoundingBoxHelper(mesh);
+    		bbox.update();
+    		bboxComputed = true;
+    		
+    		// Get the geometry of the case
+    		caseGeometry = geometry;
     		
     		scene.add(mesh);
     	});
-    	
-    	return bbox;
+		
     }
     
-    // Add axes
-    function buildAxes( length ) {
-		var axes = new THREE.Object3D();
+    // Add stl objects and a name
+    function calculateSTLProperties(url, name) {
+	    //var STLObject; 
+    	var STLbbox, STLComputed = false, STLGeometry;
     
-		axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( length, 0, 0 ), 0xFF0000, false ) ); // +X
-		axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( -length, 0, 0 ), 0xFF0000, true) ); // -X
-		axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, length, 0 ), 0x00FF00, false ) ); // +Y
-		axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, -length, 0 ), 0x00FF00, true ) ); // -Y
-		axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, length ), 0x0000FF, false ) ); // +Z
-		axes.add( buildAxis( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, -length ), 0x0000FF, true ) ); // -Z
-    
-		return axes;
+    	var loader = new THREE.STLLoader();
+    	loader.load(url, function (geometry) {
+    		
+    		var material = new THREE.MeshPhongMaterial({ color: 0xff5533 });
+    		var mesh = new THREE.Mesh(geometry, material);
+    		// To scale element, use:
+    		// mesh.scale.set(0.01, 0.01, 0.01);
+    		// Add a name to the object to find it if it needs to be removed
+    		mesh.name = name;
+    		mesh.position.x = 0;
+    		mesh.position.y = 0;
+    		mesh.position.z = 0;
+    		
+    		// Compute a bounding box for the element
+    		STLbbox = new THREE.BoundingBoxHelper(mesh);
+    		STLbbox.update();
+    		
+    		// Get the geometry of the case
+    		STLGeometry = geometry;
+    		
+    		// Activate to add mesh directly
+    		// scene.add(mesh);
+    		
+    		STLObject = {
+    			"mesh" : mesh,
+    			"geometry" : STLGeometry,
+    			"bbox" : STLbbox,
+    			"name" : mesh.name,
+    			"x" : STLbbox.box.size().x,
+    			"y" : STLbbox.box.size().y,
+    			"z" : STLbbox.box.size().z
+    		};
+    		
+    		$.event.trigger({
+    			type: "stlReady",
+    			object: STLObject,
+    			time: new Date()
+    		});
+    	});
     }
-    
-    function buildAxis( src, dst, colorHex, dashed ) {
-    	var geom = new THREE.Geometry(), mat; 
-    
-    	if(dashed) {
-    		mat = new THREE.LineDashedMaterial({ linewidth: 3, color: colorHex, dashSize: 3, gapSize: 3 });
-    	} else {
-    		mat = new THREE.LineBasicMaterial({ linewidth: 3, color: colorHex });
-   		}
-    
-   		geom.vertices.push( src.clone() );
-   		geom.vertices.push( dst.clone() );
-   		geom.computeLineDistances(); // This one is SUPER important, otherwise dashed lines will appear as simple plain lines
-    
-   		var axis = new THREE.Line( geom, mat, THREE.LinePieces );
-   
-   		return axis;
-   	}
 	
 	$(document).ready(function() {
 		// Settings
@@ -105,16 +125,22 @@
 		pointlight.position.set(50, 50, 50);
 		scene.add(pointlight);
 		
-		var axes = buildAxes(1000);
-		scene.add(axes);
+		// Load events
+		calculateSTLProperties('model/cases/iphone5.stl', 'phone-model');
 		
-		var bbox = addSTLObject('model/cases/iphone5.stl', 'phone-model');
-		scene.add(bbox);
-		
-		//var box = new THREE.Box3().setFromObject(phoneModelAdded);
-		//console.log( box.min, box.max, box.size() );
+		/* Listen to "stlReady": if the name is "phone-model", phoneCase, else add to the button list */
+		$(document).on("stlReady", function(e) {
+			if(e.object.name == 'phone-model') {
+				phoneCase = e.object;	
+			} else {
+				buttonList.push(e.object);
+			}
+			
+			scene.add(phoneCase.mesh);
+		});
 		
 		animate();
+		
 	});
 	</script>
 		

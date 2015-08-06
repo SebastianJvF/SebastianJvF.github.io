@@ -2,6 +2,7 @@
 /* Dragend - event $(document).bind('dragend', function(){ console.log("Dragend"); }); */ 
 /* Dragging workaround: set variable to true when clicked on link and check on mouse up */
 function createDraggableObject(fabricObject, buttonName) {
+	var middleRect, leftRect, rightRect, topRect, bottomRect, cameraHole;
 	var draggingStarted = false;
 	
 	/* Create a deep copy of the object to be able to add multiple elements */
@@ -56,6 +57,20 @@ function createDraggableObject(fabricObject, buttonName) {
 				/* Let element be further moved */
 				deepCopy.setCoords();
 				canvas.renderAll();
+				
+				/* Check, on which side the button was placed */
+				if(deepCopy.isContainedWithinObject(canvas.item(0))) { deepCopy.contained = 0; }
+				else if(deepCopy.isContainedWithinObject(canvas.item(1))) { deepCopy.contained = 1; }
+				else if(deepCopy.isContainedWithinObject(canvas.item(2))) { deepCopy.contained = 2; }
+				else if(deepCopy.isContainedWithinObject(canvas.item(3))) { deepCopy.contained = 3; }
+				else if(deepCopy.isContainedWithinObject(canvas.item(4))) { deepCopy.contained = 4; }
+				else { deepCopy.contained = 6; }
+				
+				// Trigger an event when loaded
+				$.event.trigger({
+					type: "modelChanged",
+					time: new Date()
+				});
 				
 				/* Create a new deep copy to empty the old one */
 				deepCopy =  $.extend({}, fabricObject);
