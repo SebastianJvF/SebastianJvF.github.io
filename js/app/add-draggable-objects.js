@@ -65,6 +65,7 @@ function createDraggableObject(fabricObject, buttonName) {
 				else if(deepCopy.isContainedWithinObject(canvas.item(3))) { deepCopy.contained = 3; }
 				else if(deepCopy.isContainedWithinObject(canvas.item(4))) { deepCopy.contained = 4; }
 				else { deepCopy.contained = 6; }
+				deepCopy.buttonName = buttonName;
 				
 				// Trigger an event when loaded
 				$.event.trigger({
