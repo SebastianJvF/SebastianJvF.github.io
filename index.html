@@ -87,8 +87,11 @@
 				phoneModelChosen = false;
 				showMessage('Please choose a phone model!', showMessageRed);
 				
-				var phoneModelAdded = scene.getObjectByName('phone-model', true);
-				scene.remove(phoneModelAdded);
+				// Trigger an event when loaded
+				$.event.trigger({
+					type: "phoneModelGone",
+					time: new Date()
+				});
 		    }
 		});
 		    
@@ -268,6 +271,10 @@
 	    $(document).on("modelChanged", function(e) {
 	    	// alert("Model changed!");
 	    	
+	    	// Show phone model and hide empty div
+	    	$('#hide-phone-model').hide();
+	    	$('#three-d-panel').show();
+	    	
 	    	var debugging = true;
 	    	var gProcessor = null;
 	    	var Cube = "var cube = CSG.roundedCube({radius: 10, roundradius: 2, resolution: 16});";
@@ -296,6 +303,12 @@
 	    	        "OpenJsCad.log(phoneCase.getBounds());\n" +
 	    	        "return plhd.union(sphere); }";
 	    	}
+	    });
+	    
+	    // Show empty div and hide phone model when no phone was chosen
+	    $(document).on("phoneModelGone", function(e) {
+	    	$('#three-d-panel').hide();
+	    	$('#three-d-preview').append('<div style="width: 250px; height: 188px; background-color: #ffffff;" id="hide-phone-model"></div>');
 	    });
 	    </script>
 		
