@@ -750,10 +750,10 @@ OpenJsCad.Processor.prototype = {
     }, this);
     this.statusspan = document.createElement("span");
     this.statusbuttons = document.createElement("div");
-    this.statusbuttons.style.float = "right";
-    this.statusdiv.appendChild(this.statusspan);
+    this.statusbuttons.id = "status-download";
+    //this.statusdiv.appendChild(this.statusspan);
     this.statusdiv.appendChild(this.statusbuttons);
-    this.statusdiv.appendChild(this.controldiv);
+    //this.statusdiv.appendChild(this.controldiv);
     this.abortbutton = document.createElement("button");
     this.abortbutton.innerHTML = "Abort";
     this.abortbutton.onclick = function(e) {
@@ -774,6 +774,7 @@ OpenJsCad.Processor.prototype = {
       that.updateDownloadLink();
     };
     this.statusbuttons.appendChild(this.formatDropdown);
+    this.statusbuttons.appendChild(document.createElement("br"));
     this.generateOutputFileButton = document.createElement("button");
     this.generateOutputFileButton.onclick = function(e) {
       that.generateOutputFile();
@@ -945,8 +946,9 @@ OpenJsCad.Processor.prototype = {
   enableItems: function() {
     this.abortbutton.style.display = this.processing? "inline":"none";
     this.formatDropdown.style.display = ((!this.hasOutputFile)&&(this.hasValidCurrentObject))? "inline":"none";
-    this.generateOutputFileButton.style.display = ((!this.hasOutputFile)&&(this.hasValidCurrentObject))? "inline":"none";
-    this.downloadOutputFileLink.style.display = this.hasOutputFile? "inline":"none";
+    this.generateOutputFileButton.style.display = ((!this.hasOutputFile)&&(this.hasValidCurrentObject))? "block":"none";
+    // this.downloadOutputFileLink.style.display = this.hasOutputFile? "inline":"none";
+    // this.downloadOutputFileLink
     this.parametersdiv.style.display = (this.paramControls.length > 0)? "block":"none";
     this.errordiv.style.display = this.hasError? "block":"none";
     this.statusdiv.style.display = this.hasError? "none":"block";

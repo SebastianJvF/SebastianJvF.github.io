@@ -162,20 +162,33 @@ div#three-d-panel {
 	background-color: #ffffff;
 }
 
+div#three-d-panel div#status-download {
+	width: 250px;
+}
+
+div#three-d-panel div#status-download select {
+	width: 100%;
+	margin-top: 5px;
+}
+
 div#three-d-preview a:link,
 div#three-d-preview a:visited,
 #delete-item:link,
-#delete-item:visited {
+#delete-item:visited,
+div#three-d-preview button {
 	width: 85%;
 	display: block;
 	padding: 11px 0;
 	margin: 25px auto 0 auto;
 	border-radius: 300px;
+	font-size: 1.3em;
 	
 	color: #858585;
 	text-align: center;
 	text-decoration: none;
 	background-color: #ffffff;
+	font-style: italic;
+	font-family: Georgia, serif, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 div#three-d-preview a:hover,
