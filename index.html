@@ -362,47 +362,52 @@
 	    	/* Calculate the ratio for the offset conversation */
 	    	// Check if there is at least one button placed
 	    	// canvas.getObjects().length is the number of all objects on the canvas
-	    	if (canvas.getObjects().length > phoneModelObjectCount) {
-				// alert("At least one button was placed!");
-				var phoneOffsetX;
-				var phoneOffsetY;
-				var buttonOffsetX;
-				var buttonOffsetY;
-				var relativeOffsetX;
-				var relativeOffsetY;
-				var widthPhone;
-				var heightPhone;
-				var ratioX;
-				var ratioY;
+	    	var parseString;
 
-				for(var i = phoneModelObjectCount; i < canvas.getObjects().length; i++) {
-					// Get offset of the button in relation to the object
-					// (canvas.item(i).contained) in which of the phone items is this object included?
-					// canvas.item(canvas.item(i).contained) item in which it is contained
-					// canvas.item(canvas.item(i).contained).getTop() y offset phone model
-					// canvas.item(canvas.item(i).contained).getLeft() x offset phone model
-					// canvas.item(i).getTop() y offset button
-					// canvas.item(i).getLeft() x offset button
+				if (canvas.getObjects().length > phoneModelObjectCount) {
+						// alert("At least one button was placed!");
+						var phoneOffsetX;
+						var phoneOffsetY;
+						var buttonOffsetX;
+						var buttonOffsetY;
+						var relativeOffsetX;
+						var relativeOffsetY;
+						var widthPhone;
+						var heightPhone;
+						var ratioX;
+						var ratioY;
 
-					phoneOffsetX = canvas.item(canvas.item(i).contained).getLeft();
-					phoneOffsetY = canvas.item(canvas.item(i).contained).getTop();
-					buttonOffsetX = canvas.item(i).getLeft();
-					buttonOffsetY = canvas.item(i).getTop();
-					relativeOffsetX = buttonOffsetX - phoneOffsetX;
-					relativeOffsetY = buttonOffsetY - phoneOffsetY;
-					widthPhone = canvas.item(canvas.item(i).contained).getWidth();
-					heightPhone = canvas.item(canvas.item(i).contained).getHeight();
-					ratioX = relativeOffsetX/widthPhone;
-					ratioY = relativeOffsetY/heightPhone;
+						for(var i = phoneModelObjectCount; i < canvas.getObjects().length; i++) {
+							// Get offset of the button in relation to the object
+							// (canvas.item(i).contained) in which of the phone items is this object included?
+							// canvas.item(canvas.item(i).contained) item in which it is contained
+							// canvas.item(canvas.item(i).contained).getTop() y offset phone model
+							// canvas.item(canvas.item(i).contained).getLeft() x offset phone model
+							// canvas.item(i).getTop() y offset button
+							// canvas.item(i).getLeft() x offset button
 
-					// Add the calculated offset ratio of x and y to the object
-					canvas.item(i).calculatedRatioX = ratioX;
-					canvas.item(i).calculatedRatioY = ratioY;
-				}
+							phoneOffsetX = canvas.item(canvas.item(i).contained).getLeft();
+							phoneOffsetY = canvas.item(canvas.item(i).contained).getTop();
+							buttonOffsetX = canvas.item(i).getLeft();
+							buttonOffsetY = canvas.item(i).getTop();
+							relativeOffsetX = buttonOffsetX - phoneOffsetX;
+							relativeOffsetY = buttonOffsetY - phoneOffsetY;
+							widthPhone = canvas.item(canvas.item(i).contained).getWidth();
+							heightPhone = canvas.item(canvas.item(i).contained).getHeight();
+							ratioX = relativeOffsetX/widthPhone;
+							ratioY = relativeOffsetY/heightPhone;
+
+							alert(ratioX);
+
+							// Add the calculated offset ratio of x and y to the object
+							canvas.item(i).calculatedRatioX = ratioX;
+							canvas.item(i).calculatedRatioY = ratioY;
+						}
 	    	}
 
 	    	var debugging = true;
 	    	var gProcessor = null;
+				var semicolon = ";";
 
 	    	/* Buttons */
 	    	var smallPushButton;
@@ -431,9 +436,10 @@
 	    	    return "function main() {\n" +
 	    	        iphone5 + "\n" +
 	    	        sphere + "\n" +
+								"var sphere2 = CSG.sphere({radius: 10, resolution: 16}).translate([10, 0, 0]);" +
 	    	        "var phoneCase = plhd.translate([0, 0, 0]);\n" +
 	    	        "OpenJsCad.log(phoneCase.getBounds());\n" +
-	    	        "return plhd.union(sphere); }";
+	    	        "return plhd.union(sphere).union(sphere2); }";
 	    	}
 	    });
 
