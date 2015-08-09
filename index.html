@@ -408,7 +408,7 @@
 
 								// Calculate the x, y and z value for the translation
 								var x = 0, y = 0, z = 0, directionX = 1, directionY = 1;
-								var buttonWidth = 20, buttonHeight = 6;
+								var buttonWidth = 20, buttonHeight = 6, buttonDepth = 10;
 								var border = 2;
 
 								// If the button is correctly placed
@@ -437,21 +437,70 @@
 
 										// left rect
 										else if(canvas.item(i).contained === 1) {
-												// no need for the x value
+												if(canvas.item(i).angle === 90 || canvas.item(i).angle === 270) {
+													x = -(widthPhone3D/2)+2; // why 2?
+													y = (heightPhone3D/2)-(buttonWidth/2);
+												} else {
+													x = -(widthPhone3D/2)+2; // why 2?
+													y = (heightPhone3D/2)-(buttonHeight/2);
+												}
 
-												// parseString = cube(x, y, z, "X", canvas.item(i).angle, ".rotateY(90)");
+												// set z this time as this is the new x axis
+												y = y + ratioY*heightPhone3D*-1;
+												z = z + ratioX*depthPhone3D;
+
+												parseString = cube(x, y, z, "X", canvas.item(i).angle, ".rotateY(270)");
 										}
 
 										// right rect
 										else if(canvas.item(i).contained === 2) {
+												if(canvas.item(i).angle === 90 || canvas.item(i).angle === 270) {
+													x = (widthPhone3D/2)-2;
+													y = (heightPhone3D/2)-(buttonWidth/2);
+												} else {
+													x = (widthPhone3D/2)-2;
+													y = (heightPhone3D/2)-(buttonHeight/2);
+												}
+
+												y = y + ratioY*heightPhone3D*-1;
+												// Count backwards to allow right positioning
+												z = z + depthPhone3D - buttonHeight/2 - (ratioX*depthPhone3D);
+
+												parseString = cube(x, y, z, "X", canvas.item(i).angle, ".rotateY(90)");
 										}
 
 										// top rect
 										else if(canvas.item(i).contained === 3) {
+												if(canvas.item(i).angle === 90 || canvas.item(i).angle === 270) {
+													x = -(widthPhone3D/2)+(buttonHeight/2);
+													y = (heightPhone3D/2)-2;
+													z = (buttonWidth/2) + depthPhone3D - buttonWidth - (ratioY*(depthPhone3D));
+												} else {
+													x = -(widthPhone3D/2)+(buttonWidth/2);
+													y = (heightPhone3D/2)-2;
+													z = (buttonHeight/2) + depthPhone3D - buttonHeight - (ratioY*(depthPhone3D));
+												}
+
+												x = x + ratioX*widthPhone3D;
+
+												parseString = cube(x, y, z, "Y", canvas.item(i).angle, ".rotateX(270)");
 										}
 
 										// bottom rect
 										else if(canvas.item(i).contained === 4) {
+											if(canvas.item(i).angle === 90 || canvas.item(i).angle === 270) {
+												x = -(widthPhone3D/2)+(buttonHeight/2);
+												y = -(heightPhone3D/2)+2;
+												z = (buttonWidth/2) + depthPhone3D - buttonWidth - (ratioY*(depthPhone3D));
+											} else {
+												x = -(widthPhone3D/2)+(buttonWidth/2);
+												y = -(heightPhone3D/2)+2;
+												z = (buttonHeight/2) + depthPhone3D - buttonHeight - (ratioY*(depthPhone3D));
+											}
+
+											x = x + ratioX*widthPhone3D;
+
+											parseString = cube(x, y, z, "X", canvas.item(i).angle, ".rotateX(90)");
 										}
 
 								//}
