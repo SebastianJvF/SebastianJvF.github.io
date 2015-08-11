@@ -233,8 +233,10 @@
 	    var canvasWidth = canvas.getWidth();
 	    var canvasHeight = canvas.getHeight();
 
+			canvas.selection = false;
+
 	    /** CREATE 2D PHONE MODEL **/
-		createTwoDPhoneModel(depthPhone2D, widthPhone2D, heightPhone2D, new fabric.Rect({top: 0, left: 0, width: 1, height: 1}));
+			createTwoDPhoneModel(depthPhone2D, widthPhone2D, heightPhone2D, new fabric.Rect({top: 0, left: 0, width: 1, height: 1}));
 
 	    /* ALLOW ROTATION ON CANVAS ONLY IN 90 DEGREE SEGMENTS */
 	    var closestAngle = 0;
