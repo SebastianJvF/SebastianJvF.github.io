@@ -9,6 +9,11 @@
 
 	<!-- jQuery -->
 	<script src="js/jquery/jquery-1.11.3.js" type="text/javascript"></script>
+
+	<!-- User study -->
+	<script src="js/app/userstudy.js" type="text/javascript"></script>
+
+	<!-- Application -->
 	<script src="js/app/menu-toggles.js" type="text/javascript"></script>
 	<script src="js/app/information-messages.js" type="text/javascript"></script>
 
@@ -247,6 +252,10 @@
 	    	var fabricObj = rotEvtData.target;
 	    	closestAngle = fabricObj.straighten(); // calculate new angle
 
+				/* User study */
+				rotationCounter++;
+				// alert(rotationCounter);
+
 	    	// No need to trigger event as it will pass on to object:modified
 	    });
 
@@ -302,7 +311,15 @@
 	    		/* Add a custom variable to the fabric object to indicate wether it is correctly placed or not */
 	    		modifiedObj.correctlyPlaced = false;
 	    		showMessage("The object you placed will not be rendered as it is intersecting with the borders of the case. Please relocate them!", showMessageRed);
+
+					/* User study */
+					(modifiedObj.placedCounter)++;
+					// alert(modifiedObj.placedCounter);
 	    	}
+
+				/* User study */
+				(modifiedObj.movementCounter)++;
+				// alert(modifiedObj.movementCounter);
 
 	    	/* Update the canvas */
 	    	modifiedObj.setCoords();

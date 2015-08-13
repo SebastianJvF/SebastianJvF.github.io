@@ -68,6 +68,10 @@ function createDraggableObject(fabricObject, buttonName) {
 				deepCopy.buttonName = buttonName;
 				deepCopy.correctlyPlaced = true;
 
+				/* User study */
+				deepCopy.movementCounter = 0;
+				deepCopy.placedCounter = 0;
+
 				// Trigger an event when loaded
 				$.event.trigger({
 					type: "modelChanged",

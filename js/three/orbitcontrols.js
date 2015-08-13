@@ -17,7 +17,6 @@
 
 THREE.OrbitControls = function ( object, domElement ) {
 
-
 	this.object = object;
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
 
@@ -384,6 +383,10 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	function onMouseDown( event ) {
 
+		/* User study */
+		orbitControlsCounter++;
+		// alert(orbitControlsCounter);
+
 		if ( scope.enabled === false ) return;
 		event.preventDefault();
 
@@ -524,6 +527,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 	}
 
 	function onKeyDown( event ) {
+
+
 
 		if ( scope.enabled === false || scope.noKeys === true || scope.noPan === true ) return;
 
