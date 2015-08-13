@@ -48,10 +48,10 @@ function stopCount() {
     if(supportsLocalStorage()) {
       // Clear local storage
       // localStorage.clear();
-      eventName = "timer";
+      eventName = "timer stopped";
 
       // Basic infos everytime a "changed" event is fired
-      localStorage.setItem("timeStamp: " +  timeElapsed, eventName + ", " + "0" + ", " + "0" + ", " + "0" + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
+      localStorage.setItem(eventName + " - " +  timeElapsed, "0" + ", " + "0" + ", " + "0" + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 
       /*
       // Button values

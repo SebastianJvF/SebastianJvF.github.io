@@ -12,7 +12,7 @@ $(document).ready(function() {
 				deleteCounter++;
 
 				eventName = "delete";
-				localStorage.setItem(eventName + " - " +  timeElapsed, canvas.getActiveObject().id + ", " + canvas.getActiveObject().movementCounter + ", " + canvas.getActiveObject().placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
+				localStorage.setItem(eventName + " - " +  timeElapsed, canvas.getActiveObject().id + ", " + canvas.getActiveObject().movementCounter + ", " + canvas.getActiveObject().placedCounter + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 
 	      canvas.remove(canvas.getActiveObject());
 	      showMessage('Deleted selected button', showMessageBlue); // Show a delete massage
