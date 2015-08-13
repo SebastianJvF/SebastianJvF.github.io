@@ -9,9 +9,9 @@ body {
 	margin: 0;
 	padding: 0;
 	position: relative;
-	font: 62.5% Arial, Helvetica, Geneva, sans-serif; 
-	
-	background-color: #E8E8E8;
+	font: 62.5% Arial, Helvetica, Geneva, sans-serif;
+
+	background-color: #e8e8e8;
 }
 
 span.clear {
@@ -36,7 +36,7 @@ div.information {
 	background-color: #E8E8E8;
 }
 
-nav, #two-d-preview, 
+nav, #two-d-preview,
 div#three-d-preview,
 canvas#twodpanel {
 	float: left;
@@ -62,7 +62,7 @@ nav h1 {
 	font-size: 2em;
 	font-weight: bold;
 	font-family: "Century Gothic", "Avant Garde", Arial, Helvetica, Geneva, sans-serif;
-	
+
 	color: #FFAD53;
 	padding: 14px 20px;
 	background-color: #ffffff;
@@ -81,12 +81,12 @@ div#info-message,
 	font-family: Georgia, serif, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-nav .description {	
+nav .description {
 	color: #858585;
 	display: block;
 	text-decoration: none;
 	background-color: #ffffff;
-	
+
 	padding: 0 20px 15px 20px;
 }
 
@@ -103,7 +103,7 @@ nav div.options:last-of-type {
 /* navigation options */
 nav div.options ul {
 	padding: 10px 0;
-	margin: 0 -10px -20px -10px;	
+	margin: 0 -10px -20px -10px;
 }
 
 nav div.options ul, ul li {
@@ -119,7 +119,7 @@ nav div.options a span {
 	height: 46px;
 	display: block;
 	margin: 0 auto 3px auto;
-	
+
 	border-radius: 4px;
 	background-color: #ffffff;
 }
@@ -139,7 +139,7 @@ nav div.options li a:link,
 nav div.options li a:visited {
 	width: 75px;
 	display: block;
-	
+
 	color: #ffffff;
 	font-size: 1em;
 	font-style: normal;
@@ -182,7 +182,7 @@ div#three-d-preview button {
 	margin: 25px auto 0 auto;
 	border-radius: 300px;
 	font-size: 1.3em;
-	
+
 	color: #858585;
 	text-align: center;
 	text-decoration: none;
@@ -211,10 +211,52 @@ div#info-message {
 	position: fixed;
 	padding: 15px 20px;
 	border-radius: 5px;
-	
-	
+
+
 	color: #ffffff;
 	font-weight: bold;
 	/* visibility: hidden; */
 	background-color: #FF6060;
+}
+
+/* User study timer */
+#timer {
+	width: 350px;
+	padding: 12px;
+	border-radius: 5px;
+	text-align: center;
+	background-color: #ffffff;
+	margin: 25px auto -70px auto;
+}
+
+#timer a:link,
+#timer a:visited {
+	width: 30%;
+	display: inline-block;
+	padding: 11px 0;
+	margin: 15px auto 13px auto;
+	border-radius: 300px;
+	font-size: 1.3em;
+
+	color: #ffffff;
+	text-align: center;
+	text-decoration: none;
+	background-color: #c8c8c8;
+	font-style: italic;
+	font-family: Georgia, serif, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#timer a:hover,
+#timer a:active,
+#timer a:focus {
+	background-color: #FFAD53;
+}
+
+#timer div {
+	width: 20%;
+	color: #777777;
+	font-size: 1.5em;
+	padding: 0 20px 0 20px;
+	display: inline-block;
+	font-family: Georgia, serif, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
