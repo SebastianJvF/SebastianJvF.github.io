@@ -53,6 +53,18 @@
 	var phoneModelChosen = false;
 
 	$(document).ready(function() {
+
+	/* User study */
+	if(userStudy) {
+		  	$('body').prepend(
+		    	'<div id="timer">' +
+					'<a href="#" onclick="doTimer()">Start</a>' +
+					'<div id="timer-value">Hallo</div>' +
+					'<a href="#" onclick="stopCount()">Stop</a>' +
+		    	'</div>'
+				);
+	}
+
 	// Show empty div and hide phone model when no phone was chosen
 	$('#three-d-preview').append('<div style="width: 250px; height: 188px; background-color: #ffffff;" id="hide-phone-model"></div>');
 	$('#hide-phone-model').hide();
