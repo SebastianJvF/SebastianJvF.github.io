@@ -296,7 +296,10 @@
 							var showMessageColour = showMessageRed;
 
 							/* User study */
-							(modifiedObj.placedCounter)++;
+							(modifiedObj.movementCounter)++;
+
+							eventName = "modified - missplaced";
+							localStorage.setItem("timeStamp: " +  timeElapsed, eventName + ", " + modifiedObj.id + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 							// alert(modifiedObj.placedCounter);
 
 							break;
@@ -304,6 +307,12 @@
 							var showMessageText = "Object correctly placed";
 							var correctlyPlaced = true;
 							var showMessageColour = showMessageBlue;
+
+							/* User study */
+							(modifiedObj.movementCounter)++;
+
+							eventName = "modified - well placed";
+							localStorage.setItem("timeStamp: " +  timeElapsed, eventName + ", " + modifiedObj.id + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 						}
 					}
 
@@ -331,13 +340,12 @@
 	    		showMessage("The object you placed will not be rendered as it is intersecting with the borders of the case. Please relocate them!", showMessageRed);
 
 					/* User study */
-					(modifiedObj.placedCounter)++;
+					(modifiedObj.movementCounter)++;
+
+					eventName = "modified - missplaced";
+					localStorage.setItem("timeStamp: " +  timeElapsed, eventName + ", " + modifiedObj.id + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 					// alert(modifiedObj.placedCounter);
 	    	}
-
-				/* User study */
-				(modifiedObj.movementCounter)++;
-				// alert(modifiedObj.movementCounter);
 
 	    	/* Update the canvas */
 	    	modifiedObj.setCoords();

@@ -8,13 +8,16 @@ $(document).ready(function() {
 	      canvas.getActiveGroup().forEachObject(function(o){ canvas.remove(o) });
 	      canvas.discardActiveGroup().renderAll();
 	    } else {
+				/* User study */
+				deleteCounter++;
+
+				eventName = "delete";
+				localStorage.setItem("timeStamp: " +  timeElapsed, eventName + ", " + canvas.getActiveObject().id + ", " + canvas.getActiveObject().movementCounter + ", " + canvas.getActiveObject().placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
+
 	      canvas.remove(canvas.getActiveObject());
 	      showMessage('Deleted selected button', showMessageBlue); // Show a delete massage
 	    }
 
-			/* User study */
-			deleteCounter++;
-			// alert(deleteCounter);
 
 	    // Trigger an event when loaded
 	    $.event.trigger({

@@ -1,3 +1,4 @@
+var eventName = "";
 var clickCounter = 0;
 var deleteCounter = 0;
 var orbitControlsCounter = 0;
@@ -46,19 +47,19 @@ function stopCount() {
     /* Write all the data into the local storage */
     if(supportsLocalStorage()) {
       // Clear local storage
-      localStorage.clear();
+      // localStorage.clear();
+      eventName = "timer";
 
-      // Fixed values
-      localStorage.setItem("timeElapsed", timeElapsed);
-      localStorage.setItem("clickCounter", clickCounter);
-      localStorage.setItem("deleteCounter", deleteCounter);
-      localStorage.setItem("orbitControlsCounter", orbitControlsCounter);
+      // Basic infos everytime a "changed" event is fired
+      localStorage.setItem("timeStamp: " +  timeElapsed, eventName + ", " + "0" + ", " + "0" + ", " + "0" + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 
+      /*
       // Button values
       for(var i = phoneModelObjectCount; i < canvas.getObjects().length; i++) {
-        localStorage.setItem(canvas.item(i).buttonName + " - " +  i + " - movement", canvas.item(i).movementCounter);
-        localStorage.setItem(canvas.item(i).buttonName + " - " +  i + " - falsely placed", canvas.item(i).placedCounter);
+        localStorage.setItem(timeElapsed + ": " + canvas.item(i).buttonName + " - " +  i + " - movement", canvas.item(i).movementCounter);
+        localStorage.setItem(timeElapsed + ": " + canvas.item(i).buttonName + " - " +  i + " - falsely placed", canvas.item(i).placedCounter);
       }
+      */
     }
 }
 
