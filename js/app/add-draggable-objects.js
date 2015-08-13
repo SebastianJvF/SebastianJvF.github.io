@@ -73,6 +73,9 @@ function createDraggableObject(fabricObject, buttonName) {
 				deepCopy.idf = fabricObjectID;
 				fabricObjectID++;
 
+				eventName = "added";
+				localStorage.setItem(eventName + " - " +  timeElapsed, deepCopy.idf + ", " + deepCopy.movementCounter + ", " + deepCopy.placedCounter + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
+
 				// Trigger an event when loaded
 				$.event.trigger({
 					type: "modelChanged",
