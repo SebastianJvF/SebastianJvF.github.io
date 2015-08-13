@@ -156,10 +156,16 @@ nav div.options li a:focus {
 }
 
 /* 3d preview */
-div#three-d-panel {
+div#three-d-panel,
+div#three-d-userstudy {
 	width: 250px;
 	height: 188px; /* 4:3 format */
 	background-color: #ffffff;
+}
+
+div#three-d-userstudy {
+	margin-top: 112px;
+	background-image: url(userstudy.jpg);
 }
 
 div#three-d-panel div#status-download {

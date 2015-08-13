@@ -63,6 +63,11 @@
 					'<a href="#" onclick="stopCount()">Stop</a>' +
 		    	'</div>'
 				);
+
+				$('#three-d-preview').append(
+					'<div id="three-d-userstudy">' +
+					'</div>'
+				);
 	}
 
 	// Show empty div and hide phone model when no phone was chosen
@@ -289,7 +294,7 @@
 							var showMessageText = "The object you placed will not be rendered as it is intersecting with the borders of the case. Please relocate them!";
 							var correctlyPlaced = false;
 							var showMessageColour = showMessageRed;
-							
+
 							/* User study */
 							(modifiedObj.placedCounter)++;
 							// alert(modifiedObj.placedCounter);
