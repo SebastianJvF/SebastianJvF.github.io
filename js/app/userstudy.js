@@ -1,6 +1,5 @@
 var clickCounter = 0;
 var deleteCounter = 0;
-var rotationCounter = 0;
 var orbitControlsCounter = 0;
 var userStudy = true;
 /*
@@ -53,7 +52,6 @@ function stopCount() {
       localStorage.setItem("timeElapsed", timeElapsed);
       localStorage.setItem("clickCounter", clickCounter);
       localStorage.setItem("deleteCounter", deleteCounter);
-      localStorage.setItem("rotationCounter", rotationCounter);
       localStorage.setItem("orbitControlsCounter", orbitControlsCounter);
 
       // Button values
