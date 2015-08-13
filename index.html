@@ -289,6 +289,11 @@
 							var showMessageText = "The object you placed will not be rendered as it is intersecting with the borders of the case. Please relocate them!";
 							var correctlyPlaced = false;
 							var showMessageColour = showMessageRed;
+							
+							/* User study */
+							(modifiedObj.placedCounter)++;
+							// alert(modifiedObj.placedCounter);
+
 							break;
 						} else {
 							var showMessageText = "Object correctly placed";
