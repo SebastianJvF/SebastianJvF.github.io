@@ -299,7 +299,7 @@
 							(modifiedObj.movementCounter)++;
 
 							eventName = "modified - missplaced";
-							localStorage.setItem("timeStamp: " +  timeElapsed, eventName + ", " + modifiedObj.id + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
+							localStorage.setItem(eventName + " - " +  timeElapsed, modifiedObj.id + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 							// alert(modifiedObj.placedCounter);
 
 							break;
@@ -312,7 +312,7 @@
 							(modifiedObj.movementCounter)++;
 
 							eventName = "modified - well placed";
-							localStorage.setItem("timeStamp: " +  timeElapsed, eventName + ", " + modifiedObj.id + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
+							localStorage.setItem(eventName + " - " +  timeElapsed, modifiedObj.id + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 						}
 					}
 
@@ -343,7 +343,7 @@
 					(modifiedObj.movementCounter)++;
 
 					eventName = "modified - missplaced";
-					localStorage.setItem("timeStamp: " +  timeElapsed, eventName + ", " + modifiedObj.id + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
+					localStorage.setItem(eventName + " - " +  timeElapsed, modifiedObj.id + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 					// alert(modifiedObj.placedCounter);
 	    	}
 
