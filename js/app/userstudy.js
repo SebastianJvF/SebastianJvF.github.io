@@ -2,7 +2,6 @@ var eventName = "";
 var clickCounter = 0;
 var deleteCounter = 0;
 var orbitControlsCounter = 0;
-var userStudy = true;
 /*
 deepCopy.movementCounter = 0; // How many times was it moved?
 deepCopy.placedCounter = 0; // How many times was it falsely placed?

@@ -38,7 +38,7 @@
 	/** APPLICATION **/
 	/* VARIABLES to be used else where */
 	/* Phone model */
-	var fabricObjectID = 0;
+	var fabricObjectID = 0; // global object count, raised on object creation
 	var phoneModel;
 	var phoneModelObjectCount = 5;
 	var depthPhone2D = 0, widthPhone2D = 0, heightPhone2D = 0;
@@ -50,26 +50,28 @@
 	var parseStringLocal = "";
 	var phoneToBeUsed;
 
+	var userStudy = true; // Show user study?
+
 	/* BOOLEANS that need to be true */
 	var phoneModelChosen = false;
 
 	$(document).ready(function() {
+	/* User study, hide on creation */
+	$('body').prepend(
+		'<div id="timer">' +
+		'<a href="#" onclick="doTimer()">Start</a>' +
+		'<div id="timer-value">Timer</div>' +
+		'<a href="#" onclick="stopCount()">Stop</a>' +
+		'</div>'
+	);
 
-	/* User study */
-	if(userStudy) {
-		  	$('body').prepend(
-		    	'<div id="timer">' +
-					'<a href="#" onclick="doTimer()">Start</a>' +
-					'<div id="timer-value">Timer</div>' +
-					'<a href="#" onclick="stopCount()">Stop</a>' +
-		    	'</div>'
-				);
+	$('#three-d-preview').append(
+		'<div id="three-d-userstudy">' +
+		'</div>'
+	);
 
-				$('#three-d-preview').append(
-					'<div id="three-d-userstudy">' +
-					'</div>'
-				);
-	}
+	$('#timer').hide();
+	$('#three-d-userstudy').hide();
 
 	// Show empty div and hide phone model when no phone was chosen
 	$('#three-d-preview').append('<div style="width: 250px; height: 188px; background-color: #ffffff;" id="hide-phone-model"></div>');
@@ -92,6 +94,7 @@
 		    			heightPhone2D = 310;
 		    			depthPhone2D = 40;
 							phoneModelObjectCount = 9;
+							userStudy = true;
 
 							// Set 3D model preferences, see models in openjscad/models.js
 							phoneToBeUsed = iphone5;
@@ -153,10 +156,10 @@
 
 						} else if(phoneModel == 'testmodel') {
 							// 2D Model
-							widthPhone2D = 190;
-							heightPhone2D = 310;
-							depthPhone2D = 40;
-							phoneModelObjectCount = 5;
+							widthPhone2D = 170;
+							heightPhone2D = 320;
+							depthPhone2D = 35;
+							userStudy = false;
 
 							// Set 3D model preferences, see models in openjscad/models.js
 							phoneToBeUsed = testmodel;
@@ -422,6 +425,15 @@
 	    /* Listen to "modelChanged" event to reload the three-d-panel */
 	    $(document).on("modelChanged", function(e) {
 	    	// alert("Model changed!");
+
+				// User study: Hide when false
+				if(userStudy) {
+					$('#timer').show();
+					$('#three-d-userstudy').show();
+				} else {
+					$('#timer').hide();
+					$('#three-d-userstudy').hide();
+				}
 
 	    	// Show phone model and hide empty div
 	    	$('#hide-phone-model').hide();
