@@ -156,6 +156,7 @@
 							widthPhone2D = 190;
 							heightPhone2D = 310;
 							depthPhone2D = 40;
+							phoneModelObjectCount = 5;
 
 							// Set 3D model preferences, see models in openjscad/models.js
 							phoneToBeUsed = testmodel;
@@ -317,6 +318,11 @@
 	    		 modifiedObj.isContainedWithinObject(canvas.item(2)) ||
 	    		 modifiedObj.isContainedWithinObject(canvas.item(3)) ||
 	    		 modifiedObj.isContainedWithinObject(canvas.item(4)))) {
+
+				  /* Set defaults */
+					var showMessageText = "Object correctly placed";
+					var correctlyPlaced = true;
+					var showMessageColour = showMessageBlue;
 
 					/* Check if the object interfers with any of the objects that are not supposed to be */
 					for(var i = 5; i < phoneModelObjectCount; i++) {
