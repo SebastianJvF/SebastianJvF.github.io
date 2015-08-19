@@ -160,17 +160,18 @@
 
 		    	$('#two-d-panel').show();
 
+		    } else if (phoneModell == 'test') {
 		    } else {
-		    	$('#two-d-panel').hide();
-				phoneModel = '';
-				phoneModelChosen = false;
-				showMessage('Please choose a phone model!', showMessageRed);
+				    $('#two-d-panel').hide();
+						phoneModel = '';
+						phoneModelChosen = false;
+						showMessage('Please choose a phone model!', showMessageRed);
 
-				// Trigger an event when loaded
-				$.event.trigger({
-					type: "phoneModelGone",
-					time: new Date()
-				});
+						// Trigger an event when loaded
+						$.event.trigger({
+							type: "phoneModelGone",
+							time: new Date()
+						});
 		    }
 		});
 
@@ -181,9 +182,11 @@
 	    addButtonAction('img/buttons/big-push-button.svg', 'big-push-button');
 	    addButtonAction('img/buttons/rocker-button.svg', 'rocker-button');
 
+			/*
 	    addButtonAction('img/buttons/slider-2-positions.svg', 'slider-2-positions');
 	    addButtonAction('img/buttons/slider-3-positions.svg', 'slider-3-positions');
 	    addButtonAction('img/buttons/slider-5-positions.svg', 'slider-5-positions');
+			*/
 
 	});
 	</script>
@@ -207,12 +210,14 @@
 				<form id="application">
 				<select id="phone-model">
 				<option value="">Please choose...</option>
+				<option value="test" id="test">Test Modell</option>
 				<option value="iphone-5" id="iphone-5">iPhone 5</option>
 				</select>
 				</form>
 			</div>
 
-			<h1>Push buttons</h1>
+			<!-- Push buttons -->
+			<h1>Buttons</h1>
 			<div class="description">Rockers and buttons that spring back to their usual, unpushed state</div>
 			<div class="options">
 				<ul>
@@ -228,6 +233,7 @@
 			<div class="options">Options panel</div>
 			-->
 
+			<!--
 			<h1>Sliders</h1>
 			<div class="description">Control element to set a value by moving an indicator</div>
 			<div class="options">
@@ -237,6 +243,7 @@
 				<li><a href="#" id="slider-5-positions"><span></span>5 Positions</a></li>
 				</ul>
 			</div>
+		-->
 
 			<a href="#" title="Delete selected object" id="delete-item">Delete selected object</a>
 		</nav>
@@ -491,7 +498,7 @@
 										// middle rect
 										if(canvas.item(i).contained === 0) {
 												// z value will always equal to 0
-												z = 0;
+												z = 0 - buttonToBeUsed.depth;
 
 												// place button on the top left, change buttonToBeUsed.width/height on 90/270 degrees
 												if(canvas.item(i).angle === 90 || canvas.item(i).angle === 270) {
