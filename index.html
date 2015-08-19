@@ -49,6 +49,8 @@
 	var parseString = "";
 	var parseStringLocal = "";
 	var phoneToBeUsed;
+	var oldCamera;
+	var gProcessor;
 
 	var userStudy = true; // Show user study?
 
@@ -56,11 +58,13 @@
 	var phoneModelChosen = false;
 
 	$(document).ready(function() {
+	gProcessor = new OpenJsCad.Processor(document.getElementById("three-d-panel"));
+
 	/* User study, hide on creation */
 	$('body').prepend(
 		'<div id="timer">' +
 		'<a href="#" onclick="doTimer()">Start</a>' +
-		// '<div id="timer-value">Timer</div>' +
+		'<div id="timer-value">Timer</div>' +
 		'<a href="#" onclick="stopCount()">Stop</a>' +
 		'</div>'
 	);
@@ -159,11 +163,22 @@
 							widthPhone2D = 170;
 							heightPhone2D = 320;
 							depthPhone2D = 35;
+							phoneModelObjectCount = 6;
 							userStudy = false;
 
 							// Set 3D model preferences, see models in openjscad/models.js
 							phoneToBeUsed = testmodel;
 							phoneNameToBeUsed = "testmodel";
+
+							var camera = new fabric.Rect({
+							top : 105,
+							left : 300,
+							width : 57,
+							height : 28,
+							fill : modelStrokeColor,
+							strokeWidth : modelStrokeWidth,
+							stroke: modelStrokeColor
+							});
 
 							/*
 							3D MODEL
@@ -176,7 +191,7 @@
 							heightPhone3D = 120;		// Minimum value half * -1, max value half	 	y
 							depthPhone3D = 10; 		// Minimum value 0 normally   					z
 
-							createTwoDPhoneModel(depthPhone2D, widthPhone2D, heightPhone2D);
+							createTwoDPhoneModel(depthPhone2D, widthPhone2D, heightPhone2D, camera);
 						}
 
 						// Trigger an event when loaded
@@ -474,6 +489,9 @@
 								// canvas.item(i).getTop() y offset button
 								// canvas.item(i).getLeft() x offset button
 
+								// Calculate the x, y and z value for the translation
+								var x = 0, y = 0, z = 0;
+
 								phoneOffsetX = canvas.item(canvas.item(i).contained).getLeft();
 								phoneOffsetY = canvas.item(canvas.item(i).contained).getTop();
 								buttonOffsetX = canvas.item(i).getBoundingRect().left; // always gets the left upper point
@@ -529,9 +547,6 @@
 								// Add this button to the parse String
 								parseString = parseString + buttonNameString + buttonToBeUsed.plhd;
 
-								// Calculate the x, y and z value for the translation
-								var x = 0, y = 0, z = 0;
-
 								// If the button is correctly placed
 								if(canvas.item(i).correctlyPlaced) {
 
@@ -559,16 +574,16 @@
 										// left rect
 										else if(canvas.item(i).contained === 1) {
 												if(canvas.item(i).angle === 90 || canvas.item(i).angle === 270) {
-													x = -(widthPhone3D/2); // why 2?
+													x = -(widthPhone3D/2);
 													y = (heightPhone3D/2)-(buttonToBeUsed.width/2);
 												} else {
-													x = -(widthPhone3D/2); // why 2?
+													x = -(widthPhone3D/2);
 													y = (heightPhone3D/2)-(buttonToBeUsed.height/2);
 												}
 
 												// set z this time as this is the new x axis
 												y = y + ratioY*heightPhone3D*-1;
-												z = z + ratioX*depthPhone3D;
+												z = z + ratioX*depthPhone3D + buttonToBeUsed.depth/2;
 
 												parseString = parseString + ".rotateY(270).rotateX(" + canvas.item(i).angle + ").translate([" + x + ", " + y + ", " + z + "]); ";
 										}
@@ -585,7 +600,7 @@
 
 												y = y + ratioY*heightPhone3D*-1;
 												// Count backwards to allow right positioning
-												z = z + depthPhone3D - buttonToBeUsed.height/2 - (ratioX*depthPhone3D);
+												z = z + ratioX*(depthPhone3D) + buttonToBeUsed.depth/2; // + depthPhone3D - buttonToBeUsed.height/2 - (ratioX*depthPhone3D);
 
 												parseString = parseString + ".rotateY(90).rotateX(" + canvas.item(i).angle + ").translate([" + x + ", " + y + ", " + z + "]); ";
 										}
@@ -640,12 +655,11 @@
 				parseString = phoneToBeUsed + parseString + "; return " + phoneNameToBeUsed + parseStringLocal + ";";
 
 	    	var debugging = true;
-	    	var gProcessor = null;
 
 	    	/* Show all exceptions to the user, reate a processor */
 	    	OpenJsCad.AlertUserOfUncaughtExceptions();
-	    	gProcessor = new OpenJsCad.Processor(document.getElementById("three-d-panel"));
 	    	gProcessor.setDebugging(debugging);
+				gProcessor.viewer.camera_ = cameraOld;
 
 	    	/* Load scripts from the function */
 	    	jscadscript = generateScript();

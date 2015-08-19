@@ -268,6 +268,8 @@ OpenJsCad.Viewer.prototype = {
 
         this.camera_.aspect = widthInPx/heightInPx;
         this.camera_.updateProjectionMatrix();
+
+        cameraOld = this.camera_;
         // set canvas attributes (false => don't set css)
         this.renderer_.setSize(widthInPx, heightInPx, false);
         this.render();
