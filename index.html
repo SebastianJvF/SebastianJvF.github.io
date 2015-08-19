@@ -64,7 +64,7 @@
 	$('body').prepend(
 		'<div id="timer">' +
 		'<a href="#" onclick="doTimer()">Start</a>' +
-		'<div id="timer-value">Timer</div>' +
+		'<div id="timer-value" style="display: none;">Timer</div>' +
 		'<a href="#" onclick="stopCount()">Stop</a>' +
 		'</div>'
 	);
@@ -659,7 +659,6 @@
 	    	/* Show all exceptions to the user, reate a processor */
 	    	OpenJsCad.AlertUserOfUncaughtExceptions();
 	    	gProcessor.setDebugging(debugging);
-				gProcessor.viewer.camera_ = cameraOld;
 
 	    	/* Load scripts from the function */
 	    	jscadscript = generateScript();
@@ -668,7 +667,6 @@
 
 	    	function generateScript() {
 	    	// Always needs a main function
-					console.log(parseString);
 					return "function main() {\n" +
 					parseString + "\n" +
 					"}";
