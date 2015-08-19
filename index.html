@@ -87,7 +87,7 @@
 
 		    		/* Change canvas scaling depending on the phone model */
 		    		if(phoneModel == 'iphone-5') {
-		    			// 2D Model
+							// 2D Model
 		    			widthPhone2D = 168;
 		    			heightPhone2D = 310;
 		    			depthPhone2D = 40;
@@ -151,16 +151,38 @@
 
 		    			createTwoDPhoneModel(depthPhone2D, widthPhone2D, heightPhone2D, powerButton, volumeRockers, speakers, camera);
 
-		    			// Trigger an event when loaded
-		    			$.event.trigger({
-		    				type: "modelChanged",
-		    				time: new Date()
-		    			});
-		    		}
+						} else if(phoneModel == 'testmodel') {
+							// 2D Model
+							widthPhone2D = 190;
+							heightPhone2D = 310;
+							depthPhone2D = 40;
 
-		    	$('#two-d-panel').show();
+							// Set 3D model preferences, see models in openjscad/models.js
+							phoneToBeUsed = testmodel;
+							phoneNameToBeUsed = "testmodel";
 
-		    } else if (phoneModell == 'test') {
+							/*
+							3D MODEL
+							Get the size by calling OpenJsCad.log(object.getBounds()); in test-model.html
+							red: x axis
+							green: y axis
+							blue: z axis
+							*/
+							widthPhone3D = 60; 		// Minimum value half * -1, max value half		x
+							heightPhone3D = 120;		// Minimum value half * -1, max value half	 	y
+							depthPhone3D = 10; 		// Minimum value 0 normally   					z
+
+							createTwoDPhoneModel(depthPhone2D, widthPhone2D, heightPhone2D);
+						}
+
+						// Trigger an event when loaded
+						$.event.trigger({
+								type: "modelChanged",
+								time: new Date()
+						});
+
+						$('#two-d-panel').show();
+
 		    } else {
 				    $('#two-d-panel').hide();
 						phoneModel = '';
@@ -210,7 +232,7 @@
 				<form id="application">
 				<select id="phone-model">
 				<option value="">Please choose...</option>
-				<option value="test" id="test">Test Modell</option>
+				<option value="testmodel" id="test">Test model</option>
 				<option value="iphone-5" id="iphone-5">iPhone 5</option>
 				</select>
 				</form>
