@@ -1,5 +1,5 @@
 /* Buttons */
-var smallPushButton;
+var smallPushButton = {"plhd" : "CSG.cube({corner1: [-3, 2, 5], corner2: [3, -2, 0]})", "width" : 6, "height" : 4, "depth" : 5, "count": 0};
 var bigPushButton = {"plhd" : "CSG.cube({corner1: [-10, 3, 5], corner2: [10, -3, 0]})", "width" : 20, "height" : 6, "depth" : 5, "count": 0};
 var rockerButton;
 var slider2Positions;
