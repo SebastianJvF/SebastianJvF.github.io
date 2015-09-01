@@ -345,13 +345,15 @@
 
 					/* Check if the object interfers with any of the objects that are not supposed to be */
 					for(var i = 5; i < phoneModelObjectCount; i++) {
+						(modifiedObj.movementCounter)++;
+
 						if(modifiedObj.intersectsWithObject(canvas.item(i)) || modifiedObj.isContainedWithinObject(canvas.item(i))) {
 							var showMessageText = "The object you placed will not be rendered as it is intersecting with the borders of the case. Please relocate them!";
 							var correctlyPlaced = false;
 							var showMessageColour = showMessageRed;
 
 							/* User study */
-							(modifiedObj.movementCounter)++;
+							(modifiedObj.placedCounter)++;
 
 							eventName = "modified - missplaced";
 							localStorage.setItem(eventName + " - " +  timeElapsed, modifiedObj.idf + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
@@ -364,8 +366,6 @@
 							var showMessageColour = showMessageBlue;
 
 							/* User study */
-							(modifiedObj.movementCounter)++;
-
 							eventName = "modified - well placed";
 							localStorage.setItem(eventName + " - " +  timeElapsed, modifiedObj.idf + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 						}
@@ -395,7 +395,6 @@
 	    		showMessage("The object you placed will not be rendered as it is intersecting with the borders of the case. Please relocate them!", showMessageRed);
 
 					/* User study */
-					(modifiedObj.movementCounter)++;
 					(modifiedObj.placedCounter)++;
 
 					eventName = "modified - missplaced";
