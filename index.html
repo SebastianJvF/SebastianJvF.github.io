@@ -396,6 +396,7 @@
 
 					/* User study */
 					(modifiedObj.movementCounter)++;
+					(modifiedObj.placedCounter)++;
 
 					eventName = "modified - missplaced";
 					localStorage.setItem(eventName + " - " +  timeElapsed, modifiedObj.idf + ", " + modifiedObj.movementCounter + ", " + modifiedObj.placedCounter + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
