@@ -72,7 +72,7 @@ function createDraggableObject(fabricObject, buttonName) {
 				/* User study */
 				deepCopy.movementCounter = 0;
 				deepCopy.placedCounter = 0;
-				deepCopy.idf = fabricObjectID;
+				deepCopy.idf = 0 + fabricObjectID;
 				fabricObjectID++;
 
 				// Trigger an event when loaded
