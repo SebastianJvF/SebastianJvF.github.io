@@ -325,6 +325,7 @@
 	    /* When object was modified, snap to angle and rerender all objects */
 	    canvas.on("object:modified", function(modEvtData) {
 	    	var modifiedObj = modEvtData.target;
+				(modifiedObj.movementCounter)++;
 
 	    	if (modifiedObj.angle && snap) {
 	    		modifiedObj.setAngle(closestAngle).setCoords();
@@ -345,8 +346,6 @@
 
 					/* Check if the object interfers with any of the objects that are not supposed to be */
 					for(var i = 5; i < phoneModelObjectCount; i++) {
-						(modifiedObj.movementCounter)++;
-						alert(modifiedObj.movementCounter);
 
 						if(modifiedObj.intersectsWithObject(canvas.item(i)) || modifiedObj.isContainedWithinObject(canvas.item(i))) {
 							var showMessageText = "The object you placed will not be rendered as it is intersecting with the borders of the case. Please relocate them!";
