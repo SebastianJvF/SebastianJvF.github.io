@@ -103,6 +103,12 @@ function addButtonAction(url, id) {
 	        	function(objects, options) {
 	            	loadedObjects = new fabric.Group(group);
 	            	createDraggableObject(loadedObjects, id);
+
+								// Trigger an event when loaded
+								$.event.trigger({
+									type: "modelChanged",
+									time: new Date()
+								});
 	            },
 
 	            function(item, object) {
