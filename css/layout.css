@@ -26,7 +26,7 @@ span.bold {
 
 /* start layout */
 div#wrap {
-	width: 1140px;
+	width: 1190px;
 	margin: 100px auto;
 }
 
@@ -54,7 +54,7 @@ nav {
 }
 
 div#three-d-preview {
-	width: 250px;
+	width: 300px;
 }
 
 /* navigation */
@@ -158,8 +158,8 @@ nav div.options li a:focus {
 /* 3d preview */
 div#three-d-panel,
 div#three-d-userstudy {
-	width: 250px;
-	height: 188px; /* 4:3 format */
+	width: 360px;
+	height: 270px; /* 4:3 format */
 	background-color: #ffffff;
 }
 
@@ -169,7 +169,7 @@ div#three-d-userstudy {
 }
 
 div#three-d-panel div#status-download {
-	width: 250px;
+	width: 300px;
 }
 
 div#three-d-panel div#status-download select {
