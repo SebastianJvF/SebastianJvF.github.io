@@ -50,12 +50,6 @@ function createDraggableObject(fabricObject, buttonName) {
 				canvas.add(deepCopy);
 				showMessage("Added button", showMessageBlue);
 
-				// Trigger an event when loaded
-				$.event.trigger({
-					type: "modelChanged",
-					time: new Date()
-				});
-
 				/* Set coordinates */
 				deepCopy.setTop(mouseCoordinates.y);
 				deepCopy.setLeft(mouseCoordinates.x);
@@ -82,6 +76,12 @@ function createDraggableObject(fabricObject, buttonName) {
 				eventName = "added";
 				localStorage.setItem(eventName + " - " +  timeElapsed, deepCopy.idf + ", " + deepCopy.movementCounter + ", " + deepCopy.placedCounter + ", " + clickCounter + ", " + deleteCounter + ", " + orbitControlsCounter);
 
+				// Trigger an event when loaded
+				$.event.trigger({
+					type: "modelChanged",
+					time: new Date()
+				});
+
 				/* Create a new deep copy to empty the old one */
 				deepCopy =  $.extend({}, fabricObject);
 			}
@@ -103,11 +103,6 @@ function addButtonAction(url, id) {
 	        	function(objects, options) {
 	            	loadedObjects = new fabric.Group(group);
 	            	createDraggableObject(loadedObjects, id);
-								// Trigger an event when loaded
-								$.event.trigger({
-									type: "modelChanged",
-									time: new Date()
-								});
 	            },
 
 	            function(item, object) {
